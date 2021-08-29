@@ -107,6 +107,11 @@ export default class NPCActorImport extends ActorImporter {
     
     getNPCDetails(alignment, type) {
 
+        var cr = this.getAttribCurrent("npc_challenge")
+        if (cr === '—'){
+            cr = '0'
+        }
+        
         return {
             biography: {
                 value: unescape(this.content.character.bio),
@@ -114,7 +119,7 @@ export default class NPCActorImport extends ActorImporter {
             },
             alignment: alignment,
             race: this.getAttribCurrent("race_display"),
-            cr: parseFloat(eval(this.getAttribCurrent("npc_challenge"))),
+            cr: parseFloat(eval(cr)),
             type: {
                 value: type
             }

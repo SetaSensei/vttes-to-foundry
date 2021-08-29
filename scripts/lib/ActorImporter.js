@@ -9,6 +9,7 @@ export default class ActorImporter {
         this.actor = actor
         this.repeatingFeatures = {}
         this.repeatingFeaturesIds = {}
+        this.usedAttacks = []
     }
 
     async import(content) {
@@ -148,9 +149,9 @@ export default class ActorImporter {
             type: 'feat',
             data: {
                 description: {
-                    value: feat.description.current
+                    value: feat.description ? feat.description.current : ''
                 },
-                requirements: feat.source_type ? feat.source_type.current : feat.source.current,
+                requirements: feat.source_type ? feat.source_type.current : feat.source ? feat.source.current : '',
                 source: 'Imported by vttes to Foundry'
             }
         }
@@ -159,34 +160,12 @@ export default class ActorImporter {
     }
 
     async createItem(item, options) {
-        var desc = await renderTemplate('modules/vttes-to-foundry/templates/itemDescription.hbs', 
+        var desc = await renderTemplate('modules/vttes-to-foundry-dev/templates/itemDescription.hbs', 
         {
             properties: item.itemproperties ? item.itemproperties.current : '',
             content: item.itemcontent ? item.itemcontent.current : ''
         })
 
-        var features = options.features
-        var damageParts = []
-        var versatile = ''
-        if (item.hasattack && item.hasattack.current == 1) {
-            var attackIds = item.itemattackid.current.split(',')
-
-            for (let idx = 0; idx < attackIds.length; idx++) {
-                const attackId = attackIds[idx].substring(1);
-                var attackData = features['attack'][attackId]
-                if (attackData.versatile_alt.current == 1) {
-                    versatile = `${attackData.dmgbase.current} + @mod`
-                    continue
-                }
-                damageParts.push([
-                    `${attackData.dmgbase.current} + @mod`,
-                    attackData.dmgtype.current
-                    ])
-            }
-            
-            console.log(attackData)
-        }
-         
         var newItem = {
             name: item[options.keyName].current,
             type: 'loot',
@@ -200,6 +179,68 @@ export default class ActorImporter {
                 rarity: "common",
             }
         }
+
+        moduleLib.vttLog(`Creating item : ${newItem.name}`)
+
+        if (item.itemmodifiers) {
+            var modifiers = item.itemmodifiers.current.split(',')
+                .reduce((arr, curr)=> {
+                    var keyValue = curr.split(':')
+                    if (keyValue[0] && keyValue[1]) {
+                        arr[keyValue[0].trim()] = keyValue[1].trim()
+                    }
+                    return arr
+                }, {})
+
+            if (modifiers['AC']) {
+                moduleLib.vttLog(`Item : ${newItem.name} identified as equipment`)
+
+                var {typeName: arType, maxDex: maxDex} = moduleLib.getArmorType(modifiers['Item Type'])
+                newItem.data.armor = {
+                    value: parseInt(modifiers['AC']),
+                    type: arType,
+                    dex: maxDex
+                }
+                newItem.type= 'equipment'
+                newItem.data.stealth = modifiers['Stealth'] ? modifiers['Stealth'] === 'Disadvantage' : false
+            }
+            console.log(modifiers)
+        }
+
+        
+        if (item.hasattack && item.hasattack.current == 1) {
+            moduleLib.vttLog(`Item : ${newItem.name} identified as weapon`)
+
+            newItem.data.damage = {}
+            var features = options.features
+            var damageParts = []
+            var versatile = ''
+            var attackIds = item.itemattackid.current.split(',')
+
+            for (let idx = 0; idx < attackIds.length; idx++) {
+                const attackId = attackIds[idx];
+                var attackData = features['attack'][attackId]
+                if (attackData.versatile_alt && attackData.versatile_alt.current == 1) {
+                    versatile = `${attackData.dmgbase.current} + @mod`
+                    item.data.properties.ver = true
+                    continue
+                }
+                damageParts.push([
+                    `${attackData.dmgbase.current} + @mod`,
+                    attackData.dmgtype.current
+                    ])
+            }
+
+            newItem.data.damage.parts = damageParts
+            newItem.data.damage.versatile = versatile
+            newItem.data.actionType = moduleLib.getAttackTypeFromWeaponType(modifiers['Item Type'])
+
+            newItem.type = 'weapon'
+            // console.log(attackData)
+            // console.log (newItem)
+        }
+         
+        
 
         return newItem
     }
@@ -326,7 +367,7 @@ export default class ActorImporter {
             var idCut = t.name.indexOf('_-')
             var propCut = t.name.indexOf('_', idCut + 2)
             var objType = t.name.substring(input.length + 1, idCut)
-            var id = t.name.substring(idCut + 2, propCut)
+            var id = t.name.substring(idCut + 1, propCut)
             var propName = t.name.substring(propCut + 1)
 
             if (!arr[objType]) {
@@ -427,6 +468,12 @@ export default class ActorImporter {
     }
 
     getOverridenClassData(className, sourceClass, subClassName, level = 1) {
+        if (!sourceClass.data.spellcasting) {
+            sourceClass.data.spellcasting = {
+                progression: "none",
+                ability: ""
+              }
+        }
         var clonedClass = {
             name: className,
             type: "class",
@@ -435,6 +482,14 @@ export default class ActorImporter {
         }
         clonedClass.data.levels = level
         clonedClass.data.subclass = subClassName
+
+        if (!clonedClass.data.spellcasting) {
+            clonedClass.data.spellcasting = {
+                progression: "none",
+                ability: ""
+              }
+        }
+        
         return clonedClass;
     }
 
@@ -537,6 +592,13 @@ export default class ActorImporter {
                         transformAction(this.content, currObject, currFeat)
                         embedQueue.push(currObject)
                         found = true
+
+                        if (currFeat['itemattackid']){
+                            moduleLib.vttLog(`${currFeat[options.keyName].current} has attackid`)
+                            console.log(this.repeatingFeatures['attack'][currFeat['itemattackid'].current])
+
+                            this.usedAttacks.push(currFeat['itemattackid'].current)
+                        }
                         break
                     }
                 }

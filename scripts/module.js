@@ -44,6 +44,9 @@ function journalReadFile(control) {
 
     fReader.onload = function () {
         var content = JSON.parse(fReader.result)
+        if (!schemaIsValid(content)) {
+            return
+        }
         importToJournal(content, journal);
     }
     fReader.onerror = function () {
@@ -71,11 +74,22 @@ function actorReadFile(control) {
 
     fReader.onload = function () {
         var content = JSON.parse(fReader.result)
+        if (!schemaIsValid(content)) {
+            return
+        }
         importToActor(content, actor, compName)
     }
     fReader.onerror = function () {
         vttError(fReader.error)
     }
+}
+
+function schemaIsValid(content) {
+    if (!content.schema_version || parseInt(content.schema_version) < 3) {
+        vttError(`The given document is not on a supported schema. Expected : 3 or superior, actual : ${content.schema_version ?? 'not set'}`, true);
+        return false
+    }
+    return true
 }
 
 function journalShowFilePicker(event) {
@@ -114,7 +128,7 @@ async function actorShowFilePicker(event) {
         compendiums.push(cData)
       }
 
-    var dialogContent = await renderTemplate('modules/vttes-to-foundry/templates/file-picker.hbs', 
+    var dialogContent = await renderTemplate('modules/vttes-to-foundry-dev/templates/file-picker.hbs', 
     {
         actorId: event.currentTarget.dataset.actorid,
         compendiums: compendiums
