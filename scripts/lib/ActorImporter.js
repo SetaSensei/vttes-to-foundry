@@ -10,6 +10,8 @@ export default class ActorImporter {
         this.repeatingFeatures = {}
         this.repeatingFeaturesIds = {}
         this.usedAttacks = []
+
+        this.path = moduleLib.getFolderPath()
     }
 
     async import(content) {
@@ -160,7 +162,7 @@ export default class ActorImporter {
     }
 
     async createItem(item, options) {
-        var desc = await renderTemplate('modules/vttes-to-foundry-dev/templates/itemDescription.hbs', 
+        var desc = await renderTemplate(this.path + 'templates/itemDescription.hbs', 
         {
             properties: item.itemproperties ? item.itemproperties.current : '',
             content: item.itemcontent ? item.itemcontent.current : ''

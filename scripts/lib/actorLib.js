@@ -1,8 +1,7 @@
 
 
 import {
-    vttLog,
-    getSizeCode
+    vttLog
 } from './moduleLib.js'
 import NPCActorImport from './NPCActor.js';
 import PCActorImport from './PCActor.js';

@@ -1,4 +1,12 @@
 const LOG_PREFIX = 'VTTES2FVTT'
+import config from '../config.json'
+
+const getFolderPath = function() {
+    if (config.environment === 'dev') {
+        return 'modules/vttes-to-foundry-dev/'
+    }
+    return 'modules/vttes-to-foundry/'
+}
 
 const vttLog = function (message, showOnUI = false) {
     console.log(`${LOG_PREFIX} - ${message}`)
@@ -109,4 +117,4 @@ const WEAPON_TYPES =
         "Versatile": "ver"
       }
 
-export {vttLog, vttWarn, vttError, getAttackTypeFromWeaponType, capitalizeFirstLetter, getSizeCode, getArmorTypeAndDexLimit as getArmorType}
+export {vttLog, vttWarn, vttError, getAttackTypeFromWeaponType, capitalizeFirstLetter, getSizeCode, getArmorTypeAndDexLimit as getArmorType, getFolderPath}

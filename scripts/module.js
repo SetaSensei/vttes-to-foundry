@@ -1,6 +1,6 @@
 import {importToActor} from './lib/actorLib.js'
 import {importToJournal} from './lib/journalLib.js'
-import {vttLog, vttError} from './lib/moduleLib.js'
+import {vttLog, vttError, getFolderPath} from './lib/moduleLib.js'
 
 CONFIG.debug.hooks = false
 
@@ -128,7 +128,7 @@ async function actorShowFilePicker(event) {
         compendiums.push(cData)
       }
 
-    var dialogContent = await renderTemplate('modules/vttes-to-foundry-dev/templates/file-picker.hbs', 
+    var dialogContent = await renderTemplate(getFolderPath() + 'templates/file-picker.hbs', 
     {
         actorId: event.currentTarget.dataset.actorid,
         compendiums: compendiums
