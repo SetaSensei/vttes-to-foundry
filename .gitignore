@@ -95,3 +95,6 @@ Thumbs.db
 
 #bak files
 *.bak
+
+#lock files
+*.lock

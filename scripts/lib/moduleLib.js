@@ -1,8 +1,11 @@
 const LOG_PREFIX = 'VTTES2FVTT'
-import config from '../config.json'
+
+const LOCAL_CONFIG = {
+    environment: "dev"
+}
 
 const getFolderPath = function() {
-    if (config.environment === 'dev') {
+    if (LOCAL_CONFIG.environment === 'dev') {
         return 'modules/vttes-to-foundry-dev/'
     }
     return 'modules/vttes-to-foundry/'

@@ -162,7 +162,7 @@ export default class ActorImporter {
     }
 
     async createItem(item, options) {
-        var desc = await renderTemplate(this.path + 'templates/itemDescription.hbs', 
+        var desc = await renderTemplate(moduleLib.getFolderPath() + 'templates/itemDescription.hbs', 
         {
             properties: item.itemproperties ? item.itemproperties.current : '',
             content: item.itemcontent ? item.itemcontent.current : ''
@@ -238,8 +238,6 @@ export default class ActorImporter {
             newItem.data.actionType = moduleLib.getAttackTypeFromWeaponType(modifiers['Item Type'])
 
             newItem.type = 'weapon'
-            // console.log(attackData)
-            // console.log (newItem)
         }
          
         
@@ -412,7 +410,7 @@ export default class ActorImporter {
     async setActorMainClass() {
         var className = this.getAttribCurrent("class")
         var subClassName = this.getAttribCurrent("subclass")
-        var classLevel = this.getAttribCurrentInt("level")
+        var classLevel = this.getAttribCurrentInt("base_level")
 
         return await this.setClass(className, subClassName, classLevel)
     }
