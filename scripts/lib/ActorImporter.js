@@ -102,8 +102,19 @@ export default class ActorImporter {
         return property.current
     }
 
-    getAttrib(key) {
-        return this.content.character.attribs.find(att => att.name === key)
+    getAttrib(key, options = { throwIfNotFound: false, warnIfNotFound: false }) {
+        var attrib = this.content.character.attribs.find(att => att.name === key)
+        if (attrib || !(options.throwIfNotFound ?? false)) {
+            return attrib
+        }
+
+        var errorMessage = `Attribute ${key} cannot be found inside the provided file. Make sure all attributes ('attribs') are set to lowercase`
+        if (options.warnIfNotFound ?? false) {
+            moduleLib.vttWarn(errorMessage, true)
+            return null
+        }
+        moduleLib.vttError(errorMessage, true)
+        throw `Attribute not found ${key}`
     }
 
     getAttribCurrentInt(key, defaultValue = 0) {
@@ -461,6 +472,11 @@ export default class ActorImporter {
 
         }
 
+        if (!useClass) {
+            moduleLib.vttWarn(`Class ${className} with subclass ${subClassName} cannot be found in any of the game's compendium`, true)
+            return null
+        }
+
         var newClass = this.getOverridenClassData(className, useClass, subClassName, classLevel)
         await this.actor.createEmbeddedDocuments('Item', [newClass])
 
@@ -552,7 +568,12 @@ export default class ActorImporter {
     }
 
     getHp() {
-        var hpAttrib = this.getAttrib("hp")
+        var hpAttrib = this.getAttrib("hp", {warnIfNotFound: true})
+
+        if (!hpAttrib) {
+            moduleLib.vttWarn(`The attribute hp was not found. Make sure all attributes names (attribs) are set in lowercase`, true)
+            return
+        }
         return {
             value: hpAttrib.current,
             max: hpAttrib.max
