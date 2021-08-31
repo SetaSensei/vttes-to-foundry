@@ -1,7 +1,7 @@
 const LOG_PREFIX = 'VTTES2FVTT'
 
 const LOCAL_CONFIG = {
-    environment: "dev"
+    environment: "prod"
 }
 
 const getFolderPath = function() {
