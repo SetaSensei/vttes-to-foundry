@@ -181,19 +181,19 @@ export default class PCActorImport extends ActorImporter {
                         custom: ""
                     },
                     languages: {
-                        value: [],
+                        value: this.getProficiency(proficiencies, "LANGUAGE"),
                         custom: this.getProficiencyAsCustom(proficiencies, "LANGUAGE")
                     },
                     weaponProf: {
-                        value: [],
+                        value: this.getWeaponsProficiencies(proficiencies),
                         custom: this.getProficiencyAsCustom(proficiencies, "WEAPON")
                     },
                     armorProf: {
-                        value: [],
+                        value: this.getArmorsProficiencies(proficiencies),
                         custom: this.getProficiencyAsCustom(proficiencies, "ARMOR")
                     },
                     toolProf: {
-                        value: [],
+                        value: tools,
                         custom: tools.join(';')
                     }
                 }
@@ -203,7 +203,7 @@ export default class PCActorImport extends ActorImporter {
 
     getToolProficiencies() {
         return this.getAttributesBySuffix("_toolname").reduce((acc, curr) => {
-            acc.push(curr.current);
+            acc.push(moduleLib.capitalizeFirstLetterOfEveryWord(curr.current));
             return acc;
         }, []);
     }
