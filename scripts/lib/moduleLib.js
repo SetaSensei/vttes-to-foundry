@@ -1,3 +1,4 @@
+
 const LOG_PREFIX = 'VTTES2FVTT'
 
 const LOCAL_CONFIG = {
@@ -37,12 +38,27 @@ const vttWarn = function (message, showOnUI = false) {
     }
 }
 
+const capitalizeFirstLetterOfEveryWord = function(string) {
+    const words = string.split(' ')
+    var output = ''
+
+    words.forEach(word => {
+        output += capitalizeFirstLetter(word) + ' '
+    });
+
+    return output.trim()
+}
+
 const capitalizeFirstLetter = function (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 const  getSizeCode = function (size) {
    return VTTES_TO_FOUNDRY_SIZES[size]
+}
+
+const getArmorType = function(armor) {
+    return ARMOR_TYPES[armor]
 }
 
 const  getArmorTypeAndDexLimit = function(armor) {
@@ -135,5 +151,33 @@ const WEAPON_TYPES =
         "Versatile": "ver"
       }
 
-export {vttLog, vttWarn, vttError, getAttackTypeFromWeaponType, capitalizeFirstLetter, getAttackRange,
-    getSizeCode, getArmorTypeAndDexLimit as getArmorType, getFolderPath, SOURCE_MESSAGE, getAttackType}
+const WEAPON_PROPERTIES = {
+"ada": "Adamantite",
+"amm": "Ammunition",
+"fin": "Finesse",
+"fir": "Firearm",
+"foc": "Focus",
+"hvy": "Heavy",
+"lgt": "Light",
+"lod": "Loading",
+"mgc": "Magical",
+"rch": "Reach",
+"rel": "Reload",
+"ret": "Returning",
+"sil": "Silvered",
+"spc": "Special",
+"thr": "Thrown",
+"two": "Two-Handed",
+"ver": "Versatile"
+};
+
+
+export {vttLog, vttWarn, vttError, getAttackTypeFromWeaponType, capitalizeFirstLetter, getAttackRange, capitalizeFirstLetterOfEveryWord,
+    getSizeCode, getArmorTypeAndDexLimit, getFolderPath, SOURCE_MESSAGE, getAttackType, WEAPON_PROPERTIES, getArmorType}
+
+export function getNameForSearch(itemName) {
+    return itemName.toLowerCase()
+}
+
+
+
