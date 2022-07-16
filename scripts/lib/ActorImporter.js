@@ -609,7 +609,7 @@ export default class ActorImporter {
             return lowerName
         }
 
-        return this.getProficiency(proficiencies, 'WEAPON')
+        return this.getProficiency(proficiencies, 'WEAPON', nameTransform)
     }
 
     getProficiency(proficiencies, profKey, transform = null) {
