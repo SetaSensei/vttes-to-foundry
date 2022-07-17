@@ -20,7 +20,8 @@ export default class PCActorImport extends ActorImporter {
         var inventory = await this.embedFromCompendiums(['equipment'], 'inventory', {
             keyName: 'itemname',
             createAction: this.createItem,
-            features: this.repeatingFeatures
+            features: this.repeatingFeatures,
+            transformAction: this.applyItemTranformation
         })
         var spells = await this.getAndPrepareSpells();
 
@@ -44,14 +45,6 @@ export default class PCActorImport extends ActorImporter {
                 name: this.actor.name,
                 imgsrc: this.actor.img
             }, darkvision);
-
-            // var actorToken = this.actor.data.token;
-            // await actorToken.update({
-            //     name: this.actor.name,
-            //     night_vision_distance: darkvision,
-            //     imgsrc: this.actor.img,
-            //     displayName: CONST.TOKEN_DISPLAY_MODES.NONE
-            // });
         }
     }
 
@@ -64,6 +57,12 @@ export default class PCActorImport extends ActorImporter {
             img: tokenInfos.imgsrc,
             displayName: tokenInfos.showname ? CONST.TOKEN_DISPLAY_MODES.ALWAYS : CONST.TOKEN_DISPLAY_MODES.NONE
         });
+    }
+
+    applyItemTranformation(content, objectToTransform, linkedFeature) {
+        if (objectToTransform.type == 'equipment' || objectToTransform.type == 'weapon'){
+            objectToTransform.data.equipped = linkedFeature['equipped'] ? linkedFeature['equipped'].current == 1 : true 
+        }
     }
 
     applyProficiencies(inventory) {
