@@ -149,7 +149,7 @@ export default class ActorImporter {
         var {
             embedQueue: readyToImport,
             creationQueue: notCreated
-        } = await this.embedFromRepeating(compendiums, repeatingKey, options.transformAction ?? this.noop, options)
+        } = await this.embedFromRepeating(compendiums, repeatingKey, options.transformAction, options)
 
         moduleLib.vttLog(`${notCreated.length} items in ${repeatingKey} were not found in compendiums of type ${compendiumKeys}`)
 
