@@ -46,6 +46,8 @@ export default class PCActorImport extends ActorImporter {
                 imgsrc: this.actor.img
             }, darkvision);
         }
+
+        await this.actor.longRest({dialog: false, chat: false})
     }
 
     async updateToken(tokenInfos, darkvision) {

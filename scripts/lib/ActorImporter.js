@@ -664,7 +664,7 @@ export default class ActorImporter {
 
     noop() {}
 
-    async embedFromRepeating(compendiums, repeatingKey, transformAction, options = {
+    async embedFromRepeating(compendiums, repeatingKey, transformAction = this.noop, options = {
         keyName: 'name'
     }) {
         var features = this.repeatingFeatures[repeatingKey]
