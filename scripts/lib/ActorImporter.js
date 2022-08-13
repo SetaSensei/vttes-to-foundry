@@ -135,7 +135,7 @@ export default class ActorImporter {
         return Math.floor((level + 7) / 4);
     }
 
-    async embedFromCompendiums(compendiumTypeNames, repeatingKey, options = {
+    async embedFromCompendiums(compendiumTypeNames, repeatingKeys, options = {
         keyName: 'name',
         transformAction: this.noop,
         createAction: null
@@ -148,21 +148,28 @@ export default class ActorImporter {
             compendiums = [...compendiums, ...comps]
         });
 
-        var {
-            embedQueue: readyToImport,
-            creationQueue: notCreated
-        } = await this.embedFromRepeating(compendiums, repeatingKey, options.transformAction, options)
-
-        moduleLib.vttLog(`${notCreated.length} items in ${repeatingKey} were not found in compendiums of type ${compendiumTypeNames}`)
-
-        if (options.createAction) {
-            moduleLib.vttLog(`${repeatingKey} items have create method. Iterating ...`)
-            for (let idx = 0; idx < notCreated.length; idx++) {
-                const notFoundItem = notCreated[idx];
-                var element = await options.createAction(notFoundItem, options)
-                readyToImport.push(element)
+        for (let idx = 0; idx < repeatingKeys.length; idx++) {
+            const key = repeatingKeys[idx];
+            var currentImport = []
+            var {
+                embedQueue: currentImport,
+                creationQueue: notCreated
+            } = await this.embedFromRepeating(compendiums, key, options.transformAction, options)
+    
+            moduleLib.vttLog(`${notCreated.length} items in ${key} were not found in compendiums of type ${key}`)
+    
+            if (options.createAction) {
+                moduleLib.vttLog(`${key} items have create method. Iterating ...`)
+                for (let idx = 0; idx < notCreated.length; idx++) {
+                    const notFoundItem = notCreated[idx];
+                    var element = await options.createAction(notFoundItem, options)
+                    readyToImport.push(element)
+                }
             }
+
+            readyToImport = [...readyToImport, ...currentImport]
         }
+        
 
         return readyToImport
     }
@@ -458,53 +465,67 @@ export default class ActorImporter {
             moduleLib.vttLog(notFoundEntries)
 
             notFoundEntries.forEach(entry => {
-                var entryKeyCut = entry.indexOf('_-')
-                var key = entry.substring(entryKeyCut + 1)
+                var entryKeyCut = entry.indexOf('_-');
+                var key = entry.substring(entryKeyCut + 1);
 
-                moduleLib.vttLog(key + ' goes to level ' + this.spellsLevelList[key].level)
+                moduleLib.vttLog(key + ' goes to level ' + this.spellsLevelList[key].level);
 
-                var spellInfos = this.repeatingFeatures['spell-'+ this.spellsLevelList[key].level][key]
-
-                var activation = spellLib.getSpellActivation(spellInfos)
-                var spellDuration = spellLib.getSpellDuration(spellInfos)
-                var range = spellLib.getSpellRange(spellInfos)
-                var target = spellLib.getSpellTarget(spellInfos)
-                var actionType = spellLib.getActionType(spellInfos)
-                var damage = spellLib.getDamages(spellInfos)
-                var scaling = spellLib.getScaling(spellInfos)
-                var components = spellLib.getComponents(spellInfos)
-                var materials = spellLib.getMaterials(spellInfos)
-                var save = spellLib.getSave(spellInfos)
-                var school = spellLib.getSpellSchool(spellInfos)
-
-                var newSpell = {
-                    type: "spell",
-                    name: spellInfos.spellname.current,
-                    data: {
-                        level: spellInfos.spelllevel.current == 'cantrip' ? 0 : this.spellsLevelList[key].level,
-                        description: { 
-                            value: `${spellInfos.spelldescription.current}<p>${spellInfos.spelltarget.current}<p>${spellInfos.spellathigherlevels.current}`
-                        },
-                        source: "Imported by VTTES2Foundry",
-                        activation: activation,
-                        duration: spellDuration,
-                        target: target,
-                        range: range,
-                        actionType: actionType,
-                        damage: damage,
-                        scaling: scaling,
-                        components: components,
-                        materials: materials,
-                        save: save,
-                        school: school
-                    }
-                }
-
-                compendiumEntries.push(newSpell)
+                var spellInfos = this.repeatingFeatures['spell-' + this.spellsLevelList[key].level][key];
+                var spell = this.createSpell(spellInfos);
+                compendiumEntries.push(spell)
             })
         }
 
         return compendiumEntries
+    }
+
+    applySpellTranformation(content, objectToTransform, linkedFeature) {
+        objectToTransform.data.preparation = spellLib.getPreparation(linkedFeature)
+    }
+
+    
+
+    createSpell(spellInfos, options) {
+        
+
+        var activation = spellLib.getSpellActivation(spellInfos);
+        var spellDuration = spellLib.getSpellDuration(spellInfos);
+        var range = spellLib.getSpellRange(spellInfos);
+        var target = spellLib.getSpellTarget(spellInfos);
+        var actionType = spellLib.getActionType(spellInfos);
+        var damage = spellLib.getDamages(spellInfos);
+        var scaling = spellLib.getScaling(spellInfos);
+        var components = spellLib.getComponents(spellInfos);
+        var materials = spellLib.getMaterials(spellInfos);
+        var save = spellLib.getSave(spellInfos);
+        var school = spellLib.getSpellSchool(spellInfos);
+        var preparation = spellLib.getPreparation(spellInfos)
+
+        var newSpell = {
+            type: "spell",
+            name: spellInfos.spellname.current,
+            data: {
+                level: spellInfos.spelllevel.current == 'cantrip' ? 0 : parseInt(spellInfos.spelllevel.current),
+                description: {
+                    value: `${spellInfos.spelldescription.current}<p>${spellInfos.spelltarget.current}<p>${spellInfos.spellathigherlevels.current}`
+                },
+                source: "Imported by VTTES2Foundry",
+                activation: activation,
+                duration: spellDuration,
+                target: target,
+                range: range,
+                actionType: actionType,
+                damage: damage,
+                scaling: scaling,
+                components: components,
+                materials: materials,
+                save: save,
+                school: school,
+                preparation: preparation
+            }
+        };
+
+        return newSpell;
     }
 
     async setActorMainClass() {

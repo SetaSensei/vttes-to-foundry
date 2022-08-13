@@ -14,19 +14,27 @@ export default class PCActorImport extends ActorImporter {
         await super.import(content, compendiums)
 
         var abilities = this.getAbilities();
-        var traits = await this.embedFromCompendiums(['feat'], 'traits', {
+        var traits = await this.embedFromCompendiums(['feat'], ['traits'], {
             createAction: this.createFeat
         })
         this.setDarkvision(traits);
 
-        var inventory = await this.embedFromCompendiums(['equipment'], 'inventory', {
+        var inventory = await this.embedFromCompendiums(['equipment'], ['inventory'], {
             keyName: 'itemname',
             createAction: this.createItem,
             features: this.repeatingFeatures,
             transformAction: this.applyItemTranformation
         })
 
-        var spells = await this.getAndPrepareSpells();
+        var spellKeys = this.getSpellsKeys();
+
+        //var spells = await this.getAndPrepareSpells();
+        var spells = await this.embedFromCompendiums(['spell'], spellKeys, {
+            keyName: 'spellname',
+            createAction: this.createSpell,
+            features: this.repeatingFeatures,
+            transformAction: this.applySpellTranformation
+        })
 
         await this.setClasses();
 
@@ -39,12 +47,22 @@ export default class PCActorImport extends ActorImporter {
         var allItemsToCreate = [...inventory, ...traits, ...spells];
         await this.actor.createEmbeddedDocuments("Item", allItemsToCreate);
 
-        await this.getTokenSetup();
+        this.getTokenSetup();
 
         await this.actor.longRest({dialog: false, chat: false})
     }
 
     
+
+    getSpellsKeys() {
+        var spellKeys = [];
+
+        spellKeys.push('spell-cantrip');
+        for (let idx = 1; idx < 10; idx++) {
+            spellKeys.push('spell-' + idx);
+        }
+        return spellKeys;
+    }
 
     applyItemTranformation(content, objectToTransform, linkedFeature) {
         if (objectToTransform.type == 'equipment' || objectToTransform.type == 'weapon'){

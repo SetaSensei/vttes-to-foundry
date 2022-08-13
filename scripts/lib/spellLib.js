@@ -85,7 +85,7 @@ import * as moduleLib from "./moduleLib.js";
             }
         }
 
-        return null
+        return 'util'
     }
 
     export function getDamages(spellInfos) {
@@ -172,6 +172,33 @@ import * as moduleLib from "./moduleLib.js";
 
     export function getSpellSchool(spellInfos) {
         return moduleLib.SPELL_SCHOOLS[spellInfos.spellschool.current]
+    }
+
+    export function isPactMagic(spellInfos) {
+        return spellInfos.spellclass.current.toLowerCase().indexOf('warlock') >= 0;
+    }
+
+    export function getPreparation(spellInfos) {
+        var preparation = {
+            mode: 'prepared',
+            prepared: false
+        }
+
+        if (this.isPactMagic(spellInfos) && spellInfos.spelllevel.current != 'cantrip') {
+            preparation = {
+                mode: 'pact',
+                prepared: true
+            }
+        }
+
+        if (spellInfos.innate && spellInfos.innate.current.length > 0) {
+            preparation = {
+                mode: 'innate',
+                prepared: true
+            }
+        }
+
+        return preparation
     }
 
 export {getSpellTarget, getSpellRange, getSpellDuration}
