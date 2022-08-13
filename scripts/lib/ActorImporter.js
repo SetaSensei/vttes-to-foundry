@@ -773,4 +773,34 @@ export default class ActorImporter {
         }
     }
 
+    getTokenSetup() {
+        var tokenContent = {
+            name: this.actor.name,
+            imgsrc: this.actor.img
+        }
+
+        if (this.content.character.defaulttoken && this.content.character.defaulttoken != '') {
+            tokenContent = JSON.parse(this.content.character.defaulttoken);
+        }
+
+        return {
+            name: tokenContent.name,
+            vision: true,
+            dimSight: tokenContent.night_vision_distance ?? this.darkvision,
+            img: tokenContent.imgsrc,
+            displayName: tokenContent.showname ? CONST.TOKEN_DISPLAY_MODES.ALWAYS : CONST.TOKEN_DISPLAY_MODES.NONE
+        }
+    }
+
+    // async updateToken(tokenInfos) {
+    //     var actorToken = this.actor.data.token;
+    //     await actorToken.update({
+    //         name: tokenInfos.name,
+    //         vision: true,
+    //         dimSight: tokenInfos.night_vision_distance ?? this.darkvision,
+    //         img: tokenInfos.imgsrc,
+    //         displayName: tokenInfos.showname ? CONST.TOKEN_DISPLAY_MODES.ALWAYS : CONST.TOKEN_DISPLAY_MODES.NONE
+    //     });
+    // }
+
 }

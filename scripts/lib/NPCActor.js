@@ -22,7 +22,7 @@ export default class NPCActorImport extends ActorImporter {
         var spells = await this.getAndPrepareSpells()
 
         moduleLib.vttLog('Iterating on Features ...')
-        
+
         var embedFeaturesQueue = []
         var {
             embedQueue: embedFeaturesQueue,
@@ -50,6 +50,7 @@ export default class NPCActorImport extends ActorImporter {
         var alignment = typeInfos.substring(comaIndex + 1)
         var size = moduleLib.getSizeCode(typeInfos.substring(0, spaceIndex).toLowerCase())
         var type = typeInfos.substring(spaceIndex, comaIndex)
+        var tokenContent = this.getTokenSetup()
 
         this.actor.update({
             name: content.character.name,
@@ -77,8 +78,11 @@ export default class NPCActorImport extends ActorImporter {
                         custom: this.getAttribCurrent("npc_vulnerabilities")
                     }
                 }
-            }
+            },
+            token: tokenContent
         })
+
+
 
     }
 

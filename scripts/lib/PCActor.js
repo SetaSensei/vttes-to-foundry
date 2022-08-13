@@ -31,6 +31,7 @@ export default class PCActorImport extends ActorImporter {
         await this.setClasses();
 
         var size = moduleLib.getSizeCode(this.getAttribCurrent("size"))
+
         await this.updatePCActorSheet(this.darkvision, size, abilities);
 
         this.applyProficiencies(inventory);
@@ -38,30 +39,12 @@ export default class PCActorImport extends ActorImporter {
         var allItemsToCreate = [...inventory, ...traits, ...spells];
         await this.actor.createEmbeddedDocuments("Item", allItemsToCreate);
 
-
-        if (this.content.character.defaulttoken && this.content.character.defaulttoken != '') {
-            var tokenInfos = JSON.parse(this.content.character.defaulttoken);
-            await this.updateToken(tokenInfos, this.darkvision);
-        } else {
-            await this.updateToken({
-                name: this.actor.name,
-                imgsrc: this.actor.img
-            });
-        }
+        await this.getTokenSetup();
 
         await this.actor.longRest({dialog: false, chat: false})
     }
 
-    async updateToken(tokenInfos) {
-        var actorToken = this.actor.data.token;
-        await actorToken.update({
-            name: tokenInfos.name,
-            vision: true,
-            dimSight: tokenInfos.night_vision_distance ?? this.darkvision,
-            img: tokenInfos.imgsrc,
-            displayName: tokenInfos.showname ? CONST.TOKEN_DISPLAY_MODES.ALWAYS : CONST.TOKEN_DISPLAY_MODES.NONE
-        });
-    }
+    
 
     applyItemTranformation(content, objectToTransform, linkedFeature) {
         if (objectToTransform.type == 'equipment' || objectToTransform.type == 'weapon'){
@@ -140,6 +123,7 @@ export default class PCActorImport extends ActorImporter {
         var tools = this.getToolProficiencies()
 
         var proficiencies = this.getGlobalProficiencies()
+        var tokenContent = this.getTokenSetup()
 
         await this.actor.update({
             name: this.content.character.name,
@@ -226,7 +210,8 @@ export default class PCActorImport extends ActorImporter {
                         custom: tools.join(';')
                     }
                 }
-            }
+            },
+            token: tokenContent
         });
     }
 
