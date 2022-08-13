@@ -1,5 +1,6 @@
 import * as moduleLib from "./moduleLib.js";
 import ItemFormat from "./itemFormat.js";
+import * as spellLib from './spellLib.js'
 import {DND5E} from "../../../../systems/dnd5e/module/config.js"
 
 export default class ActorImporter {
@@ -11,6 +12,7 @@ export default class ActorImporter {
         this.repeatingFeatures = {}
         this.repeatingFeaturesIds = {}
         this.usedAttacks = []
+        this.darkvision = null
 
         this.path = moduleLib.getFolderPath()
     }
@@ -133,7 +135,7 @@ export default class ActorImporter {
         return Math.floor((level + 7) / 4);
     }
 
-    async embedFromCompendiums(compendiumKeys, repeatingKey, options = {
+    async embedFromCompendiums(compendiumTypeNames, repeatingKey, options = {
         keyName: 'name',
         transformAction: this.noop,
         createAction: null
@@ -141,7 +143,7 @@ export default class ActorImporter {
         var readyToImport = []
         var notCreated = []
         var compendiums = []
-        compendiumKeys.forEach(compendiumKey => {
+        compendiumTypeNames.forEach(compendiumKey => {
             var comps = this.getCompendiumByType(compendiumKey);
             compendiums = [...compendiums, ...comps]
         });
@@ -151,7 +153,7 @@ export default class ActorImporter {
             creationQueue: notCreated
         } = await this.embedFromRepeating(compendiums, repeatingKey, options.transformAction, options)
 
-        moduleLib.vttLog(`${notCreated.length} items in ${repeatingKey} were not found in compendiums of type ${compendiumKeys}`)
+        moduleLib.vttLog(`${notCreated.length} items in ${repeatingKey} were not found in compendiums of type ${compendiumTypeNames}`)
 
         if (options.createAction) {
             moduleLib.vttLog(`${repeatingKey} items have create method. Iterating ...`)
@@ -180,6 +182,7 @@ export default class ActorImporter {
 
         return newFeat
     }
+
 
     async createItem(item, options) {
         var desc = await renderTemplate(moduleLib.getFolderPath() + 'templates/itemDescription.hbs', {
@@ -408,6 +411,7 @@ export default class ActorImporter {
         var traits = this.getAttribsStartsWith(input)
         var arr = {}
         var ids = {}
+        var spells = {}
 
         traits.forEach(t => {
             var idCut = t.name.indexOf('_-')
@@ -428,10 +432,14 @@ export default class ActorImporter {
                 current: t.current,
                 max: t.max
             }
+            if (propName == 'spelllevel') {
+                spells[id] = { level: t.current}
+            }
         })
 
         this.repeatingFeatures = arr
         this.repeatingFeaturesIds = ids
+        this.spellsLevelList = spells
 
         return {
             arr,
@@ -448,6 +456,52 @@ export default class ActorImporter {
         if (notFoundEntries.length > 0) {
             moduleLib.vttLog(notFoundEntries.length + ' spells were not found in compendiums')
             moduleLib.vttLog(notFoundEntries)
+
+            notFoundEntries.forEach(entry => {
+                var entryKeyCut = entry.indexOf('_-')
+                var key = entry.substring(entryKeyCut + 1)
+
+                moduleLib.vttLog(key + ' goes to level ' + this.spellsLevelList[key].level)
+
+                var spellInfos = this.repeatingFeatures['spell-'+ this.spellsLevelList[key].level][key]
+
+                var activation = spellLib.getSpellActivation(spellInfos)
+                var spellDuration = spellLib.getSpellDuration(spellInfos)
+                var range = spellLib.getSpellRange(spellInfos)
+                var target = spellLib.getSpellTarget(spellInfos)
+                var actionType = spellLib.getActionType(spellInfos)
+                var damage = spellLib.getDamages(spellInfos)
+                var scaling = spellLib.getScaling(spellInfos)
+                var components = spellLib.getComponents(spellInfos)
+                var materials = spellLib.getMaterials(spellInfos)
+                var save = spellLib.getSave(spellInfos)
+                var school = spellLib.getSpellSchool(spellInfos)
+
+                var newSpell = {
+                    type: "spell",
+                    name: spellInfos.spellname.current,
+                    data: {
+                        level: spellInfos.spelllevel.current == 'cantrip' ? 0 : this.spellsLevelList[key].level,
+                        description: { 
+                            value: `${spellInfos.spelldescription.current}<p>${spellInfos.spelltarget.current}<p>${spellInfos.spellathigherlevels.current}`
+                        },
+                        source: "Imported by VTTES2Foundry",
+                        activation: activation,
+                        duration: spellDuration,
+                        target: target,
+                        range: range,
+                        actionType: actionType,
+                        damage: damage,
+                        scaling: scaling,
+                        components: components,
+                        materials: materials,
+                        save: save,
+                        school: school
+                    }
+                }
+
+                compendiumEntries.push(newSpell)
+            })
         }
 
         return compendiumEntries
@@ -544,18 +598,18 @@ export default class ActorImporter {
         return clonedClass;
     }
 
-    getDarkvision(actorFeats) {
+    setDarkvision(actorFeats) {
+        this.darkvision = 0
+
         var darkvisionEntry = actorFeats.find(a => a.name.toLowerCase() === 'darkvision');
 
         if (darkvisionEntry) {
             var darkVisionDesc = darkvisionEntry.data.description.value
             var regexOutput = this.numberRegex.exec(darkVisionDesc);
             if (regexOutput && regexOutput.length > 0) {
-                return parseInt(regexOutput[0])
+                this.darkvision = parseInt(regexOutput[0])
             }
         }
-
-        return 0
     }
 
     getGlobalProficiencies() {

@@ -17,19 +17,21 @@ export default class PCActorImport extends ActorImporter {
         var traits = await this.embedFromCompendiums(['feat'], 'traits', {
             createAction: this.createFeat
         })
+        this.setDarkvision(traits);
+
         var inventory = await this.embedFromCompendiums(['equipment'], 'inventory', {
             keyName: 'itemname',
             createAction: this.createItem,
             features: this.repeatingFeatures,
             transformAction: this.applyItemTranformation
         })
+
         var spells = await this.getAndPrepareSpells();
 
         await this.setClasses();
 
-        var darkvision = this.getDarkvision(traits);
         var size = moduleLib.getSizeCode(this.getAttribCurrent("size"))
-        await this.updatePCActorSheet(darkvision, size, abilities);
+        await this.updatePCActorSheet(this.darkvision, size, abilities);
 
         this.applyProficiencies(inventory);
 
@@ -39,23 +41,23 @@ export default class PCActorImport extends ActorImporter {
 
         if (this.content.character.defaulttoken && this.content.character.defaulttoken != '') {
             var tokenInfos = JSON.parse(this.content.character.defaulttoken);
-            await this.updateToken(tokenInfos, darkvision);
+            await this.updateToken(tokenInfos, this.darkvision);
         } else {
             await this.updateToken({
                 name: this.actor.name,
                 imgsrc: this.actor.img
-            }, darkvision);
+            });
         }
 
         await this.actor.longRest({dialog: false, chat: false})
     }
 
-    async updateToken(tokenInfos, darkvision) {
+    async updateToken(tokenInfos) {
         var actorToken = this.actor.data.token;
         await actorToken.update({
             name: tokenInfos.name,
             vision: true,
-            dimSight: tokenInfos.night_vision_distance ?? darkvision,
+            dimSight: tokenInfos.night_vision_distance ?? this.darkvision,
             img: tokenInfos.imgsrc,
             displayName: tokenInfos.showname ? CONST.TOKEN_DISPLAY_MODES.ALWAYS : CONST.TOKEN_DISPLAY_MODES.NONE
         });

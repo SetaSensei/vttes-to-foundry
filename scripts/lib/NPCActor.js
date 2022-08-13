@@ -22,18 +22,13 @@ export default class NPCActorImport extends ActorImporter {
         var spells = await this.getAndPrepareSpells()
 
         moduleLib.vttLog('Iterating on Features ...')
+        
         var embedFeaturesQueue = []
         var {
             embedQueue: embedFeaturesQueue,
             creationQueue: creationFeaturesQueue
         } = await this.embedMonsterFeatures(monsterFeatures)
-
-        // moduleLib.vttLog('Iterating on Actions ...')
-        // var embedActionsQueue = []
-        // var {
-        //     embedQueue: embedActionsQueue,
-        //     creationQueue: creationActionQueue
-        // } = await this.embedFromRepeating([monsterFeatures, ...items], 'npcaction', this.updateDamage)
+        this.setDarkvision(embedFeaturesQueue)
 
         var embedActionsQueue = await this.embedFromCompendiums(['npcaction', 'weapon'], 'npcaction', {
             transformAction: this.updateDamage,
@@ -42,7 +37,6 @@ export default class NPCActorImport extends ActorImporter {
 
         var allItemsToCreate = [...embedFeaturesQueue, ...embedActionsQueue, ...spells];
 
-        var darkvision = this.getDarkvision(embedFeaturesQueue)
 
         await this.actor.createEmbeddedDocuments("Item", allItemsToCreate);
 

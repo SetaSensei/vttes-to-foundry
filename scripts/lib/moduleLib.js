@@ -1,4 +1,3 @@
-
 const LOG_PREFIX = 'VTTES2FVTT'
 
 const LOCAL_CONFIG = {
@@ -50,6 +49,8 @@ const capitalizeFirstLetterOfEveryWord = function(string) {
 }
 
 const capitalizeFirstLetter = function (string) {
+    if (!string || string.length == 0)
+        return string
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
@@ -130,6 +131,21 @@ const WEAPON_TYPE_TO_ACTION = {
     "Other": "other"
 }
 
+export const SPELL_TYPE_TO_ACTION = {
+    "Ranged"    : "rsak",
+    "Melee"     : "msak",
+    "Other"     : "other"
+}
+
+export const ABILITIES = {
+    'Strength'      : 'str',
+    'Dexterity'     : 'dex',
+    'Constitution'  : 'con',
+    'Intelligence'  : 'int',
+    'Wisdom'        : 'wis',
+    'Charisma'      : 'cha'
+}
+
 const WEAPON_TYPES = 
     {
         "Adamantite" : "ada",
@@ -152,28 +168,44 @@ const WEAPON_TYPES =
       }
 
 const WEAPON_PROPERTIES = {
-"ada": "Adamantite",
-"amm": "Ammunition",
-"fin": "Finesse",
-"fir": "Firearm",
-"foc": "Focus",
-"hvy": "Heavy",
-"lgt": "Light",
-"lod": "Loading",
-"mgc": "Magical",
-"rch": "Reach",
-"rel": "Reload",
-"ret": "Returning",
-"sil": "Silvered",
-"spc": "Special",
-"thr": "Thrown",
-"two": "Two-Handed",
-"ver": "Versatile"
-};
+    "ada": "Adamantite",
+    "amm": "Ammunition",
+    "fin": "Finesse",
+    "fir": "Firearm",
+    "foc": "Focus",
+    "hvy": "Heavy",
+    "lgt": "Light",
+    "lod": "Loading",
+    "mgc": "Magical",
+    "rch": "Reach",
+    "rel": "Reload",
+    "ret": "Returning",
+    "sil": "Silvered",
+    "spc": "Special",
+    "thr": "Thrown",
+    "two": "Two-Handed",
+    "ver": "Versatile"
+    };
 
+const TIME_TRANSLATE = {
+    'instantaneous' : 'inst',
+    'hours' : 'hour',
+    'minutes' : 'minute'
+}
+
+export const SPELL_SCHOOLS = {
+    'abjuration' : 'abj',
+    'conjuration' : 'con',
+    'divination' : 'div',
+    'enchantment' : 'enc',
+    'evocation' : 'evo',
+    'illusion' : 'ill',
+    'necromancy' : 'nec',
+    'transmutation' : 'trs'
+}
 
 export {vttLog, vttWarn, vttError, getAttackTypeFromWeaponType, capitalizeFirstLetter, getAttackRange, capitalizeFirstLetterOfEveryWord,
-    getSizeCode, getArmorTypeAndDexLimit, getFolderPath, SOURCE_MESSAGE, getAttackType, WEAPON_PROPERTIES, getArmorType}
+    getSizeCode, getArmorTypeAndDexLimit, getFolderPath, SOURCE_MESSAGE, getAttackType, WEAPON_PROPERTIES, getArmorType, TIME_TRANSLATE}
 
 export function getNameForSearch(itemName) {
     return itemName.toLowerCase()
