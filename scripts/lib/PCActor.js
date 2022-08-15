@@ -64,7 +64,9 @@ export default class PCActorImport extends ActorImporter {
         return spellKeys;
     }
 
-    applyItemTranformation(content, objectToTransform, linkedFeature) {
+    applyItemTranformation(content, objectToTransform, linkedFeature, options) {
+        moduleLib.setItemGlobalOptions(options, objectToTransform);
+        
         if (objectToTransform.type == 'equipment' || objectToTransform.type == 'weapon'){
             objectToTransform.data.equipped = linkedFeature['equipped'] ? linkedFeature['equipped'].current == 1 : true 
         }
@@ -240,3 +242,5 @@ export default class PCActorImport extends ActorImporter {
         }, []);
     }
 }
+
+

@@ -1,7 +1,7 @@
 import * as moduleLib from "./moduleLib.js";
 import ItemFormat from "./itemFormat.js";
 import * as spellLib from './spellLib.js'
-import {DND5E} from "../../../../systems/dnd5e/module/config.js"
+import { DND5E } from "../../../../systems/dnd5e/module/config.js"
 
 export default class ActorImporter {
 
@@ -20,6 +20,21 @@ export default class ActorImporter {
     async import(content) {
         this.content = content
         this.extractRepeatings()
+
+        // for (let idx = 0; idx < Object.keys(this.repeatingFeatures['attack']).length; idx++) {
+        //     const key = Object.keys(this.repeatingFeatures['attack'])[idx];
+        //     if (this.repeatingFeatures['attack'][key]['itemid']) {
+        //         var itemId = this.repeatingFeatures['attack'][key]['itemid'].current
+        //         console.log(this.repeatingFeatures['inventory'][itemId])
+        //         this.repeatingFeatures['inventory'][itemId]['hasattack'].current = 1
+        //         if (this.repeatingFeatures['inventory'][itemId]['itemattackid'].current.length == 0) {
+        //             this.repeatingFeatures['inventory'][itemId]['itemattackid'].current = key
+        //         } else if (this.repeatingFeatures['inventory'][itemId]['itemattackid'].current.indexOf(key) < 0) {
+        //             this.repeatingFeatures['inventory'][itemId]['itemattackid'].current += ',' + key
+        //         }
+        //         // console.log(this.repeatingFeatures['inventory'][itemId])
+        //     }
+        // }
     }
 
     getAbilities() {
@@ -155,21 +170,23 @@ export default class ActorImporter {
                 embedQueue: currentImport,
                 creationQueue: notCreated
             } = await this.embedFromRepeating(compendiums, key, options.transformAction, options)
-    
+
             moduleLib.vttLog(`${notCreated.length} items in ${key} were not found in compendiums of type ${key}`)
-    
+
             if (options.createAction) {
                 moduleLib.vttLog(`${key} items have create method. Iterating ...`)
                 for (let idx = 0; idx < notCreated.length; idx++) {
                     const notFoundItem = notCreated[idx];
                     var element = await options.createAction(notFoundItem, options)
-                    readyToImport.push(element)
+                    if (element != null) {
+                        readyToImport.push(element)
+                    }
                 }
             }
 
             readyToImport = [...readyToImport, ...currentImport]
         }
-        
+
 
         return readyToImport
     }
@@ -178,6 +195,7 @@ export default class ActorImporter {
         var newFeat = {
             name: feat.name.current,
             type: 'feat',
+            img: 'icons/commodities/tech/dial-meter-gauge-blue.webp',
             data: {
                 description: {
                     value: feat.description ? feat.description.current : ''
@@ -255,7 +273,10 @@ export default class ActorImporter {
                 var attackData = features['attack'][attackId]
                 if (attackData.versatile_alt && attackData.versatile_alt.current == 1) {
                     versatile = `${attackData.dmgbase.current} + @mod`
-                    item.data.properties.ver = true
+                    if (!newItem.data.properties) {
+                        newItem.data.properties = {}
+                    }
+                    newItem.data.properties.ver = true
                     continue
                 }
                 damageParts.push([
@@ -440,7 +461,7 @@ export default class ActorImporter {
                 max: t.max
             }
             if (propName == 'spelllevel') {
-                spells[id] = { level: t.current}
+                spells[id] = { level: t.current }
             }
         })
 
@@ -479,14 +500,20 @@ export default class ActorImporter {
         return compendiumEntries
     }
 
-    applySpellTranformation(content, objectToTransform, linkedFeature) {
+    applySpellTranformation(content, objectToTransform, linkedFeature, options) {
+        moduleLib.setItemGlobalOptions(options, objectToTransform);
+
         objectToTransform.data.preparation = spellLib.getPreparation(linkedFeature)
     }
 
-    
+
 
     createSpell(spellInfos, options) {
-        
+
+        if (!spellInfos.spellcastingtime) {
+            moduleLib.vttWarn(`Spell ${spellInfos.spellname.current} cannot be imported (reason : no spell casting time)`, true)
+            return null
+        }
 
         var activation = spellLib.getSpellActivation(spellInfos);
         var spellDuration = spellLib.getSpellDuration(spellInfos);
@@ -500,14 +527,16 @@ export default class ActorImporter {
         var save = spellLib.getSave(spellInfos);
         var school = spellLib.getSpellSchool(spellInfos);
         var preparation = spellLib.getPreparation(spellInfos)
+        var icon = spellLib.getIcon(spellInfos)
 
         var newSpell = {
             type: "spell",
             name: spellInfos.spellname.current,
+            img: icon,
             data: {
-                level: spellInfos.spelllevel.current == 'cantrip' ? 0 : parseInt(spellInfos.spelllevel.current),
+                level: !spellInfos.spelllevel || spellInfos.spelllevel.current == 'cantrip' ? 0 : parseInt(spellInfos.spelllevel.current),
                 description: {
-                    value: `${spellInfos.spelldescription.current}<p>${spellInfos.spelltarget.current}<p>${spellInfos.spellathigherlevels.current}`
+                    value: `${spellInfos.spelldescription.current}<p>${spellInfos.spelltarget ? spellInfos.spelltarget.current : ''}<p>${spellInfos.spellathigherlevels ? spellInfos.spellathigherlevels.current : ''}`
                 },
                 source: "Imported by VTTES2Foundry",
                 activation: activation,
@@ -521,7 +550,7 @@ export default class ActorImporter {
                 materials: materials,
                 save: save,
                 school: school,
-                preparation: preparation
+                preparation: preparation,
             }
         };
 
@@ -661,7 +690,7 @@ export default class ActorImporter {
     }
 
     getArmorsProficiencies(proficiencies) {
-        const nameTransform = function(name) {
+        const nameTransform = function (name) {
             if (name === 'shields') {
                 return DND5E.armorProficienciesMap['shield']
             }
@@ -673,7 +702,7 @@ export default class ActorImporter {
     }
 
     getWeaponsProficiencies(proficiencies) {
-        const nameTransform = function (name){
+        const nameTransform = function (name) {
             const lowerName = name.toLowerCase()
             if (lowerName === 'simple weapons') {
                 return 'sim'
@@ -694,8 +723,7 @@ export default class ActorImporter {
         }
         var values = keys.reduce((arr, curr) => {
             var profName = this.getAttribCurrent(curr + "_name").toLowerCase()
-            if (transform)
-            {
+            if (transform) {
                 profName = transform(profName)
             }
             arr.push(profName)
@@ -737,7 +765,7 @@ export default class ActorImporter {
         };
     }
 
-    noop() {}
+    noop() { }
 
     async embedFromRepeating(compendiums, repeatingKey, transformAction = this.noop, options = {
         keyName: 'name'
@@ -759,16 +787,18 @@ export default class ActorImporter {
                     moduleLib.vttWarn(`Current feat (${featId}) from key ${repeatingKey} has no name on property ${options.keyName}.`)
                     continue
                 }
+                const featNameForSearch = moduleLib.getNameForSearch(currFeat[options.keyName].current)
                 var found = false
 
                 for (let cpdIdx = 0; cpdIdx < compendiums.length; cpdIdx++) {
                     const compendium = compendiums[cpdIdx];
-                    const featNameForSearch = moduleLib.getNameForSearch(currFeat[options.keyName].current)
-                    var mfIndex = compendium.index.find(m => m.name.toLowerCase() === featNameForSearch)
+                    var mfIndex = compendium.index.find(m => m.name.toLowerCase() === featNameForSearch.name)
                     if (mfIndex) {
                         var feature = await compendium.getDocument(mfIndex._id)
                         var currObject = foundry.utils.deepClone(feature.toObject())
-                        transformAction(this.content, currObject, currFeat)
+
+                        var transformOptions = featNameForSearch.hasFlavorName ? { flavorName : currFeat[options.keyName].current } : {}
+                        transformAction(this.content, currObject, currFeat, transformOptions)
                         embedQueue.push(currObject)
                         found = true
 
@@ -782,7 +812,7 @@ export default class ActorImporter {
                     }
                 }
                 if (!found) {
-                    moduleLib.vttLog(`EmbedFromRepeating - ${repeatingKey} not found in compendium - Adding it to creation queue`)
+                    moduleLib.vttLog(`EmbedFromRepeating - ${currFeat[options.keyName].current} ${repeatingKey} not found in compendium - Adding it to creation queue`)
                     creationQueue.push(currFeat)
                 }
             }

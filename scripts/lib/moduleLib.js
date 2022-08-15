@@ -6,6 +6,7 @@ const LOCAL_CONFIG = {
 
 const SOURCE_MESSAGE = 'Imported by vttes to Foundry'
 
+
 const getFolderPath = function() {
     if (LOCAL_CONFIG.environment === 'dev') {
         return 'modules/vttes-to-foundry-dev/'
@@ -208,8 +209,21 @@ export {vttLog, vttWarn, vttError, getAttackTypeFromWeaponType, capitalizeFirstL
     getSizeCode, getArmorTypeAndDexLimit, getFolderPath, SOURCE_MESSAGE, getAttackType, WEAPON_PROPERTIES, getArmorType, TIME_TRANSLATE}
 
 export function getNameForSearch(itemName) {
-    return itemName.toLowerCase()
+
+    var output = {name: itemName.toLowerCase(), hasFlavorName: false}
+    const searchRegex = /\([\w\s]*\)/g;
+    var match
+
+    if (match = searchRegex.exec(itemName)) {        
+        match.forEach(m => output = {name: m.substring(1, m.length - 1).toLowerCase(), hasFlavorName: true} )
+    }
+
+    return output
 }
 
-
+export function setItemGlobalOptions(options, objectToTransform) {
+    if (options && options.flavorName) {
+        objectToTransform.name = options.flavorName;
+    }
+}
 
