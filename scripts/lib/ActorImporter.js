@@ -783,8 +783,8 @@ export default class ActorImporter {
             for (let featIndex = 0; featIndex < featureIds.length; featIndex++) {
                 const featId = featureIds[featIndex]
                 const currFeat = features[featId]
-                if (!currFeat[options.keyName]) {
-                    moduleLib.vttWarn(`Current feat (${featId}) from key ${repeatingKey} has no name on property ${options.keyName}.`)
+                if (!currFeat[options.keyName] || currFeat[options.keyName].current == '') {
+                    moduleLib.vttWarn(`Current feat (${featId}) from key ${repeatingKey} has no name on property ${options.keyName}.`, true)
                     continue
                 }
                 const featNameForSearch = moduleLib.getNameForSearch(currFeat[options.keyName].current)
@@ -812,7 +812,7 @@ export default class ActorImporter {
                     }
                 }
                 if (!found) {
-                    moduleLib.vttLog(`EmbedFromRepeating - ${currFeat[options.keyName].current} ${repeatingKey} not found in compendium - Adding it to creation queue`)
+                    moduleLib.vttLog(`EmbedFromRepeating - ${currFeat[options.keyName].current} not found in compendiums of type ${repeatingKey} - Adding it to creation queue`)
                     creationQueue.push(currFeat)
                 }
             }

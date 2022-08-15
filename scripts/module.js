@@ -110,8 +110,8 @@ function journalShowFilePicker(event) {
             }
         },
         default: "two",
-        render: html => console.log("Register interactivity in the rendered dialog"),
-        close: html => console.log("Cancel")
+        render: html => vttLog("Register interactivity in the rendered dialog"),
+        close: html => vttLog("Cancel")
     })
     dialog.render(true)
 }
@@ -150,8 +150,8 @@ async function actorShowFilePicker(event) {
             }
         },
         default: "two",
-        render: html => console.log("Register interactivity in the rendered dialog"),
-        close: html => console.log("Cancel")
+        render: html => vttLog("Register interactivity in the rendered dialog"),
+        close: html => vttLog("Closing")
     })
     dialog.render(true)
 }
