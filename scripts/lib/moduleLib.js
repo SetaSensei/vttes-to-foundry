@@ -210,8 +210,8 @@ export {vttLog, vttWarn, vttError, getAttackTypeFromWeaponType, capitalizeFirstL
 
 export function getNameForSearch(itemName) {
 
-    var output = {name: itemName.toLowerCase(), hasFlavorName: false}
-    const searchRegex = /\([\w\s]*\)/g;
+    var output = {name: itemName    .toLowerCase(), hasFlavorName: false}
+    const searchRegex = /\([\S\s]*\)/g;
     var match
 
     if (match = searchRegex.exec(itemName)) {        

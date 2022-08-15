@@ -66,7 +66,7 @@ export default class PCActorImport extends ActorImporter {
 
     applyItemTranformation(content, objectToTransform, linkedFeature, options) {
         moduleLib.setItemGlobalOptions(options, objectToTransform);
-        
+
         if (objectToTransform.type == 'equipment' || objectToTransform.type == 'weapon'){
             objectToTransform.data.equipped = linkedFeature['equipped'] ? linkedFeature['equipped'].current == 1 : true 
         }
@@ -157,7 +157,7 @@ export default class PCActorImport extends ActorImporter {
                     },
                     hp: this.getHp(),
                     init: {
-                        mod: this.getAttribCurrentInt("initiative_bonus"),
+                        value: this.getAttribCurrentInt("initmod"),
                     },
                     movement: {
                         burrow: 0,
