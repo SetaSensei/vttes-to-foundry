@@ -79,10 +79,7 @@ export default class PCActorImport extends ActorImporter {
         if (tokenInfos.sides && tokenInfos.sides != '') {
             var allSides = tokenInfos.sides.split('|')
 
-            var macrosCompendium = game.packs.get('world.macros')
-
-
-
+            var macrosCompendium = game.packs.get(`world.${moduleLib.MACRO_COMP_NAME}`)
 
             var script = `let d = new Dialog({
                 title: "Sides for ${tokenInfos.name}",

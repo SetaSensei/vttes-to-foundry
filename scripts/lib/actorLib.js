@@ -1,26 +1,14 @@
 
 
-import {
-    vttLog
-} from './moduleLib.js'
+import * as moduleLib from './moduleLib.js'
 import NPCActorImport from './NPCActor.js';
 import PCActorImport from './PCActor.js';
 
 
 const importToActor = async function importToActor(content, actor, compendiums = []) {
-    var vttesComp = game.packs.get('world.vttes-items')
-    if (!vttesComp) {
-        vttesComp = await CompendiumCollection.createCompendium({
-            "name": "vttes-items",
-            "label": "vttes-items",
-            "path": "packs/from-vttes.db",
-            "private": false,
-            "entity": "Item",
-            "system": "dnd5e",
-            "package": "world"
-        })
-    }
-
+    await checkAndCreateCompendium('vttes-items', 'Item');
+    await checkAndCreateCompendium(moduleLib.MACRO_COMP_NAME, 'Macro')
+    
     ui.notifications.info(`Importing ...`)
 
     var isNPC = (getAttribCurrentInt(content, "npc") == 1)
@@ -35,6 +23,21 @@ const importToActor = async function importToActor(content, actor, compendiums =
 
     ui.notifications.info(`Import successfull ! Actor ${actor.name} is playable`)
 
+
+    async function checkAndCreateCompendium(compendiumName, compendiumType) {
+        var compendium = game.packs.get(`world.${compendiumName}`);
+        if (!compendium) {
+            compendium = await CompendiumCollection.createCompendium({
+                "name": compendiumName,
+                "label": compendiumName,
+                "path": `packs/${compendiumName}.db`,
+                "private": false,
+                "entity": compendiumType,
+                "system": "dnd5e",
+                "package": "world"
+            });
+        }
+    }
 }
 
 function getAttribCurrent(content, key, defaultValue = '') {
