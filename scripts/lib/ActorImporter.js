@@ -20,21 +20,6 @@ export default class ActorImporter {
     async import(content) {
         this.content = content
         this.extractRepeatings()
-
-        // for (let idx = 0; idx < Object.keys(this.repeatingFeatures['attack']).length; idx++) {
-        //     const key = Object.keys(this.repeatingFeatures['attack'])[idx];
-        //     if (this.repeatingFeatures['attack'][key]['itemid']) {
-        //         var itemId = this.repeatingFeatures['attack'][key]['itemid'].current
-        //         console.log(this.repeatingFeatures['inventory'][itemId])
-        //         this.repeatingFeatures['inventory'][itemId]['hasattack'].current = 1
-        //         if (this.repeatingFeatures['inventory'][itemId]['itemattackid'].current.length == 0) {
-        //             this.repeatingFeatures['inventory'][itemId]['itemattackid'].current = key
-        //         } else if (this.repeatingFeatures['inventory'][itemId]['itemattackid'].current.indexOf(key) < 0) {
-        //             this.repeatingFeatures['inventory'][itemId]['itemattackid'].current += ',' + key
-        //         }
-        //         // console.log(this.repeatingFeatures['inventory'][itemId])
-        //     }
-        // }
     }
 
     getAbilities() {
@@ -170,7 +155,7 @@ export default class ActorImporter {
             var {
                 embedQueue: currentImport,
                 creationQueue: notCreated
-            } = await this.embedFromRepeating(compendiums, key, options.transformAction, options)
+            } = await this.embedFromRepeating(compendiums, key, options.transformAction, compendiumTypeNames, options)
 
             moduleLib.vttLog(`${notCreated.length} items in ${key} were not found in compendiums of type ${key}`)
 
@@ -843,7 +828,7 @@ export default class ActorImporter {
 
     noop() { }
 
-    async embedFromRepeating(compendiums, repeatingKey, transformAction = this.noop, options = {
+    async embedFromRepeating(compendiums, repeatingKey, transformAction = this.noop, typeList = [], options = {
         keyName: 'name',
         correspondances: null
     }) {
@@ -864,29 +849,28 @@ export default class ActorImporter {
                     moduleLib.vttWarn(`Current feat (${featId}) from key ${repeatingKey} has no name on property ${options.keyName}.`, true)
                     continue
                 }
-                const featNameForSearch = moduleLib.getNameForSearch(currFeat[options.keyName].current)
+                const featNamesForSearch = moduleLib.getNamesForSearch(currFeat[options.keyName].current, options.strict ?? false)
                 var found = false
 
                 for (let cpdIdx = 0; cpdIdx < compendiums.length; cpdIdx++) {
                     const compendium = compendiums[cpdIdx];
-                    var nameSearch = featNameForSearch.name
+                    var nameSearch = featNamesForSearch.names[0]
 
                     if (options.correspondances) {
-                        var corr = options.correspondances.filter(c => c.key == featNameForSearch.name)
+                        var corr = options.correspondances.filter(c => c.key == featNamesForSearch.names[0])
                         if (corr.length == 1) {
                             nameSearch = corr[0].value
-                        } else {
-                            nameSearch = featNameForSearch.name
+                            featNamesForSearch.hasFlavorName = true
                         }
                     }
 
-                    var mfIndex = compendium.index.find(m => m.name.toLowerCase() === nameSearch)
+                    var mfIndex = compendium.index.find(m => m.name.toLowerCase() === nameSearch && typeList.includes(m.type))
 
                     if (mfIndex) {
                         var feature = await compendium.getDocument(mfIndex._id)
                         var currObject = foundry.utils.deepClone(feature.toObject())
 
-                        var transformOptions = featNameForSearch.hasFlavorName ? { flavorName: currFeat[options.keyName].current } : {}
+                        var transformOptions = featNamesForSearch.hasFlavorName ? { flavorName: currFeat[options.keyName].current } : {}
 
                         transformAction(this.content, currObject, currFeat, transformOptions)
                         embedQueue.push(currObject)

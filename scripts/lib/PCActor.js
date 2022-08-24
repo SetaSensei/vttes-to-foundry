@@ -19,7 +19,7 @@ export default class PCActorImport extends ActorImporter {
         })
         this.setDarkvision(traits);
 
-        var inventory = await this.embedFromCompendiums(['equipment'], ['inventory'], {
+        var inventory = await this.embedFromCompendiums(['equipment', 'weapon', 'consumable', 'backpack', 'loot'], ['inventory'], {
             keyName: 'itemname',
             createAction: this.createItem,
             features: this.repeatingFeatures,
@@ -35,7 +35,8 @@ export default class PCActorImport extends ActorImporter {
             keyName: 'spellname',
             createAction: this.createSpell,
             features: this.repeatingFeatures,
-            transformAction: this.applySpellTranformation
+            transformAction: this.applySpellTranformation,
+            strict: true
         })
 
         await this.setClasses();
