@@ -14,7 +14,7 @@ Hooks.once('ready', async function () {
 
 Hooks.on('renderJournalSheet', async (app, html, data) => {
     vttLog(`renderJournalSheet hooked`)
-    const actionsTabButton = $('<a class="file-picker" data-tab="vttestofoundry-journal" data-journalid="' + data.data._id + '"> VTTES Import </a>');
+    const actionsTabButton = $('<a class="file-picker" data-tab="vttestofoundry-journal" data-journalid="' + data._id + '"> VTTES Import </a>');
     const closeButton = html.find('.close')
     actionsTabButton.insertBefore(closeButton)
 

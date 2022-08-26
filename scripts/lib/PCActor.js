@@ -1,6 +1,6 @@
 import {
     DND5E
-} from "../../../../systems/dnd5e/module/config.js";
+} from "../../../../systems/dnd5e/dnd5e.mjs";
 import ActorImporter from "./ActorImporter.js";
 import * as moduleLib from './moduleLib.js'
 
@@ -25,7 +25,8 @@ export default class PCActorImport extends ActorImporter {
             features: this.repeatingFeatures,
             transformAction: this.applyItemTranformation,
             correspondances: [
-                { key: 'wooden shield', value: 'shield' }
+                { key: 'wooden shield', value: 'shield' },
+                { key: 'hempen rope', value: 'hempen rope (50 feet)' }
             ]
         })
 
@@ -36,6 +37,9 @@ export default class PCActorImport extends ActorImporter {
             createAction: this.createSpell,
             features: this.repeatingFeatures,
             transformAction: this.applySpellTranformation,
+            correspondances: [
+                { key: 'blindness deafness', value: 'blindness/deafness' }
+            ],
             strict: true
         })
 
@@ -75,7 +79,7 @@ export default class PCActorImport extends ActorImporter {
     }
 
     async updateToken(tokenInfos, darkvision) {
-        var actorToken = this.actor.data.token;
+        var actorToken = this.actor.prototypeToken;
 
         if (tokenInfos.sides && tokenInfos.sides != '') {
             var allSides = tokenInfos.sides.split('|')
@@ -140,29 +144,37 @@ export default class PCActorImport extends ActorImporter {
 
         await actorToken.update({
             name: tokenInfos.name,
-            vision: true,
-            dimSight: tokenInfos.night_vision_distance ?? darkvision,
-            img: tokenInfos.imgsrc,
-            displayName: tokenInfos.showname ? CONST.TOKEN_DISPLAY_MODES.ALWAYS : CONST.TOKEN_DISPLAY_MODES.NONE
+            sight: {
+                enabled: true,
+                range: tokenInfos.night_vision_distance ?? darkvision, 
+                visionMode: tokenInfos.night_vision_distance ? 'darkvision' : 'basic'
+            },
+            texture: {
+                src: tokenInfos.imgsrc
+            },
+            // vision: true,
+            // dimSight: tokenInfos.night_vision_distance ?? darkvision,
+            // img: tokenInfos.imgsrc,
+            // displayName: tokenInfos.showname ? CONST.TOKEN_DISPLAY_MODES.ALWAYS : CONST.TOKEN_DISPLAY_MODES.NONE
         });
     }
 
     applyItemTranformation(content, objectToTransform, linkedFeature) {
         if (objectToTransform.type == 'equipment' || objectToTransform.type == 'weapon') {
-            objectToTransform.data.equipped = linkedFeature['equipped'] ? linkedFeature['equipped'].current == 1 : true
+            objectToTransform.equipped = linkedFeature['equipped'] ? linkedFeature['equipped'].current == 1 : true
         }
-        objectToTransform.data.quantity = linkedFeature.itemcount ? linkedFeature.itemcount.current : 1
+        objectToTransform.quantity = linkedFeature.itemcount ? linkedFeature.itemcount.current : 1
     }
 
     applyProficiencies(inventory) {
         for (let idx = 0; idx < inventory.length; idx++) {
             const item = inventory[idx];
             if (item.type === 'weapon') {
-                console.log(`${item.name} - ${item.data.weaponType}`);
-                const wType = DND5E.weaponProficienciesMap[item.data.weaponType];
+                console.log(`${item.name} - ${item.weaponType}`);
+                const wType = DND5E.weaponProficienciesMap[item.weaponType];
 
-                if (this.actor.data.data.traits.weaponProf.value.includes(wType) || this.actor.data.data.traits.weaponProf.value.includes(item.name)) {
-                    item.data.proficient = true;
+                if (this.actor.system.traits.weaponProf.value.includes(wType) || this.actor.system.traits.weaponProf.value.includes(item.name)) {
+                    item.proficient = true;
                 }
             }
         }
@@ -234,14 +246,21 @@ export default class PCActorImport extends ActorImporter {
         await this.actor.update({
             name: this.content.character.name,
             img: this.content.character.avatar,
-            data: {
-                details: details,
+            system: {
                 abilities: abilities,
                 attributes: {
                     ac: {
                         value: this.getAttribCurrentInt("ac")
                     },
                     hp: this.getHp(),
+                    encumbrance: {
+                        value: 0,
+                        max: 120,
+                        pct: 0,
+                        encumbered: false
+                    },
+                    exhaustion: 0,
+                    hd: 0,
                     init: {
                         value: this.getAttribCurrentInt("initmod"),
                     },
@@ -254,6 +273,7 @@ export default class PCActorImport extends ActorImporter {
                         units: "ft",
                         hover: false
                     },
+                    prof: 1,
                     senses: {
                         darkvision: darkvision,
                         blindsight: 0,
@@ -262,16 +282,7 @@ export default class PCActorImport extends ActorImporter {
                         units: "ft",
                         special: ""
                     },
-                    spellcasting: this.getSpellcastingAbility(),
-                    exhaustion: 0,
-                    hd: 0,
-                    prof: 1,
-                    encumbrance: {
-                        value: 0,
-                        max: 120,
-                        pct: 0,
-                        encumbered: false
-                    },
+                    spellcasting: this.getSpellcastingAbility()
                 },
                 currency: {
                     pp: this.getAttribCurrentInt('pp'),
@@ -280,6 +291,7 @@ export default class PCActorImport extends ActorImporter {
                     sp: this.getAttribCurrentInt('sp'),
                     cp: this.getAttribCurrentInt('cp')
                 },
+                details: details,
                 skills: skills,
                 traits: {
                     size: size,
@@ -317,7 +329,7 @@ export default class PCActorImport extends ActorImporter {
                     }
                 }
             },
-            token: tokenContent
+            // prototypeToken: tokenContent
         });
     }
 

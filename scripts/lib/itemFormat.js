@@ -4,7 +4,7 @@ export default class ItemFormat {
             name: null,
             type: null,
             img: null,
-            data: {
+            system: {
                 source: "vttes-to-foundry"
             },
             effects: {},

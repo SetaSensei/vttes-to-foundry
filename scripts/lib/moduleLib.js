@@ -219,16 +219,21 @@ export function getNamesForSearch(itemName, strict = false) {
         hasFlavorName: false
     }
     const searchParenthesisRegex = /\([\S\s]*\)/g;
-    const searchStrictName = /[a-zA-Z ]+/g;
+    const searchStrictName = /[a-zA-Z -]+/g;
     var match
+    var sctrictMatch
 
     if (match = searchParenthesisRegex.exec(itemName)) {
         match.forEach(m => output.names.push(m.substring(1, m.length - 1).toLowerCase()));
         output.hasFlavorName = true;
     }
 
-    if (strict) {
-        var strictNames = []
+    if (!strict) {
+        return output
+    }
+
+    if (sctrictMatch = searchStrictName.exec(itemName)) {
+        var strictNames = sctrictMatch.map(function (e) { return e.toLowerCase().trim() })
         output.names.forEach(name => {
             var strictMatch = searchStrictName.exec(name)
             if (strictMatch) {
@@ -237,7 +242,7 @@ export function getNamesForSearch(itemName, strict = false) {
             }
         })
         if (strictNames.length > 0) {
-            output.names = strictNames
+            output.names = output.names.concat(strictNames)
             output.hasFlavorName = true
         }
     }

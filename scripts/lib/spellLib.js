@@ -178,7 +178,7 @@ export function getMaterials(spellInfos) {
     return materials
 }
 
-export function getSave(spellInfos) {
+export function getSpellSave(spellInfos) {
     if (!spellInfos.spellsave) {
         return {
             ability: null,
@@ -189,7 +189,7 @@ export function getSave(spellInfos) {
     return {
         ability: moduleLib.ABILITIES[spellInfos.spellsave.current],
         dc: null,
-        scaling: spellInfos.spell_ability ? spellInfos.spell_ability.current : null
+        scaling: 'spell'// spellInfos.spell_ability ? spellInfos.spell_ability.current : null
     }
 }
 
@@ -207,7 +207,7 @@ export function isPactMagic(spellInfos) {
 export function getPreparation(spellInfos) {
     var preparation = {
         mode: 'prepared',
-        prepared: false
+        prepared: spellInfos.spellprepared ? spellInfos.spellprepared.current == '1' : false
     }
 
     if (this.isPactMagic(spellInfos) && spellInfos.spelllevel.current != 'cantrip') {

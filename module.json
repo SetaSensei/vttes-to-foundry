@@ -6,7 +6,7 @@
     "library": "false",
     "manifestPlusVersion": "1.0.0",
     "minimumCoreVersion": "0.8.8",
-    "compatibleCoreVersion": "0.8.9",
+    "compatibleCoreVersion": "10.279",
 	"author" : "SetaSensei#1102",
     "authors": [
         {
@@ -19,9 +19,6 @@
     "conflicts": [],
     "esmodules": [
         "/scripts/module.js"
-    ],
-    "scripts": [
-        "/scripts/lib/lib.js"
     ],
     "styles": [
         "/styles/module.css"

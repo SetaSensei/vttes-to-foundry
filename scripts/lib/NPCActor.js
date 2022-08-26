@@ -55,7 +55,7 @@ export default class NPCActorImport extends ActorImporter {
         this.actor.update({
             name: content.character.name,
             img: content.character.avatar,
-            data: {
+            system: {
                 skills: skills,
                 abilities: abilities,
                 attributes: this.getNPCAttributes(),
@@ -93,16 +93,16 @@ export default class NPCActorImport extends ActorImporter {
     }
 
     updateDescription(content, currObject) {
-        currObject.data.description.value = currObject.data.description.value.replaceAll('{creature}', content.character.name)
+        currObject.description.value = currObject.description.value.replaceAll('{creature}', content.character.name)
     }
 
     updateDamage(content, currObject, currFeat) {
-        currObject.data.description.value = currObject.data.description.value.replaceAll('{creature}', content.character.name)
+        currObject.description.value = currObject.description.value.replaceAll('{creature}', content.character.name)
         if (currFeat.attack_damage) {
-            currObject.data.damage.parts = [
+            currObject.damage.parts = [
                 [currFeat.attack_damage.current, currFeat.attack_damagetype.current]
             ]
-            currObject.data.attackBonus = parseInt(currFeat.attack_tohit.current)
+            currObject.attackBonus = parseInt(currFeat.attack_tohit.current)
         }
     }
 
@@ -133,7 +133,7 @@ export default class NPCActorImport extends ActorImporter {
             name: "Bite",
             type: "weapon",
             img: "systems/dnd5e/icons/skills/red_29.jpg",
-            data: {
+            system: {
                 description: {
                     value: "",
                     chat: "",
@@ -237,7 +237,7 @@ export default class NPCActorImport extends ActorImporter {
         var newItem = {
             name: item.name.current,
             type: 'feat',
-            data: {
+            system: {
                 description: {
                     value: desc
                 },
@@ -348,7 +348,7 @@ export default class NPCActorImport extends ActorImporter {
 
 
 
-            // newItem.data.actionType = moduleLib.getAttackTypeFromWeaponType(item.attack_type ? item.attack_type.current : "Melee")
+            // newItem.actionType = moduleLib.getAttackTypeFromWeaponType(item.attack_type ? item.attack_type.current : "Melee")
         }
 
         return newItem
