@@ -100,3 +100,4 @@ Thumbs.db
 
 #lock files
 *.lock
+.vscode/settings.json
