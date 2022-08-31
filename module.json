@@ -1,12 +1,14 @@
 {
-    "name": "vttes-to-foundry-dev",
+    "id": "vttes-to-foundry-dev",
     "title": "VTTES to Foundry DEV",
     "description": "",
     "version": "0.1.3",
     "library": "false",
     "manifestPlusVersion": "1.0.0",
-    "minimumCoreVersion": "0.8.8",
-    "compatibleCoreVersion": "10.279",
+    "compatibility": {
+        "min" : "10.0",
+        "max": "10.279"
+    },
 	"author" : "SetaSensei#1102",
     "authors": [
         {
@@ -15,7 +17,7 @@
             "discord": "SetaSensei#1102"
         }
     ],
-    "dependencies": [],
+    "relationships.requires": [],
     "conflicts": [],
     "esmodules": [
         "/scripts/module.js"

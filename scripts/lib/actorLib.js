@@ -31,10 +31,16 @@ const importToActor = async function importToActor(content, actor, compendiums =
                 "name": compendiumName,
                 "label": compendiumName,
                 "path": `packs/${compendiumName}.db`,
+                "type": compendiumType,
                 "private": false,
                 "entity": compendiumType,
                 "system": "dnd5e",
-                "package": "world"
+                "package": "world",
+                "relationships": {
+                    "systems": [
+                        { "id": "dnd5e"}
+                    ]
+                }
             });
         }
     }

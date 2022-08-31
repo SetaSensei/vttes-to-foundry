@@ -1,5 +1,7 @@
+import config from './config/config.json' assert { type: "json" }
 const LOG_PREFIX = 'VTTES2FVTT'
 export const MACRO_COMP_NAME = 'vttes-macros'
+
 
 const LOCAL_CONFIG = {
     environment: "prod"
@@ -9,7 +11,7 @@ const SOURCE_MESSAGE = 'Imported by vttes to Foundry'
 
 
 const getFolderPath = function () {
-    if (LOCAL_CONFIG.environment === 'dev') {
+    if (config.env === 'dev') {
         return 'modules/vttes-to-foundry-dev/'
     }
     return 'modules/vttes-to-foundry/'
@@ -68,7 +70,10 @@ const getArmorTypeAndDexLimit = function (armor) {
     var typeName = ARMOR_TYPES[armor]
     var maxDex = getArmorLimit(typeName)
 
-    return { typeName, maxDex }
+    return {
+        typeName,
+        maxDex
+    }
 }
 
 const getArmorLimit = function (armor) {
@@ -104,18 +109,28 @@ const VTTES_TO_FOUNDRY_SIZES = {
     gargantuan: "grg"
 }
 
-const ATTACK_TYPES =
-    [
-        { key: 'Melee', value: 'mwak' },
-        { key: 'Ranged', value: "rwak" },
-        { key: 'Melee Spell Attack', value: "msak" },
-        { key: 'Ranged Spell Attack', value: "rsak" }
-        // test: "save",
-        // test: "heal",
-        // test: "abil",
-        // test: "util",
-        // test: "other",
-    ]
+const ATTACK_TYPES = [{
+        key: 'Melee',
+        value: 'mwak'
+    },
+    {
+        key: 'Ranged',
+        value: "rwak"
+    },
+    {
+        key: 'Melee Spell Attack',
+        value: "msak"
+    },
+    {
+        key: 'Ranged Spell Attack',
+        value: "rsak"
+    }
+    // test: "save",
+    // test: "heal",
+    // test: "abil",
+    // test: "util",
+    // test: "other",
+]
 
 const ARMOR_TYPES = {
     "Light Armor": "light",
@@ -148,8 +163,7 @@ export const ABILITIES = {
     'Charisma': 'cha'
 }
 
-const WEAPON_TYPES =
-{
+const WEAPON_TYPES = {
     "Adamantite": "ada",
     "Ammunition": "amm",
     "Finesse": "fin",
@@ -207,8 +221,21 @@ export const SPELL_SCHOOLS = {
 }
 
 export {
-    vttLog, vttWarn, vttError, getAttackTypeFromWeaponType, capitalizeFirstLetter, getAttackRange, capitalizeFirstLetterOfEveryWord,
-    getSizeCode, getArmorTypeAndDexLimit, getFolderPath, SOURCE_MESSAGE, getAttackType, WEAPON_PROPERTIES, getArmorType, TIME_TRANSLATE
+    vttLog,
+    vttWarn,
+    vttError,
+    getAttackTypeFromWeaponType,
+    capitalizeFirstLetter,
+    getAttackRange,
+    capitalizeFirstLetterOfEveryWord,
+    getSizeCode,
+    getArmorTypeAndDexLimit,
+    getFolderPath,
+    SOURCE_MESSAGE,
+    getAttackType,
+    WEAPON_PROPERTIES,
+    getArmorType,
+    TIME_TRANSLATE
 }
 
 export function getNamesForSearch(itemName, strict = false) {
@@ -233,11 +260,15 @@ export function getNamesForSearch(itemName, strict = false) {
     }
 
     if (sctrictMatch = searchStrictName.exec(itemName)) {
-        var strictNames = sctrictMatch.map(function (e) { return e.toLowerCase().trim() })
+        var strictNames = sctrictMatch.map(function (e) {
+            return e.toLowerCase().trim()
+        })
         output.names.forEach(name => {
             var strictMatch = searchStrictName.exec(name)
             if (strictMatch) {
-                strictMatch = strictMatch.map(function (e) { return e.toLowerCase().trim() })
+                strictMatch = strictMatch.map(function (e) {
+                    return e.toLowerCase().trim()
+                })
                 strictNames = strictNames.concat(strictMatch)
             }
         })
@@ -255,4 +286,3 @@ export function setItemGlobalOptions(options, objectToTransform) {
         objectToTransform.name = options.flavorName;
     }
 }
-
