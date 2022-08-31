@@ -22,15 +22,6 @@ If you know how to use VTTES, this module will help you import characters from R
 
 Warning : this module is still in development, not all features are available.
 
-## Changelog
-
-- Stable version : added journal import support & NPCs
-
-## Features to come next
-
-- Items re-creation
-
 ## Known issues
 
 - When using Plutonium, some features imported might trigger id error when edited or when trying to be deleted. Fix is to deactivate the module or leave & reenter the game.
-- NPCs are not correctly imported.
