@@ -2,7 +2,6 @@ import * as configFile from './config/config.js'
 const LOG_PREFIX = 'VTTES2FVTT'
 export const MACRO_COMP_NAME = 'vttes-macros'
 
-
 const LOCAL_CONFIG = {
     environment: "prod"
 }
