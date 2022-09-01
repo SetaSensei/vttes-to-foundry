@@ -21,7 +21,7 @@ jobs:
       with:
         files: 'scripts/lib/config/config.json'
       env:
-        end: 'prod'
+        env: 'prod'
 
     # Substitute the Manifest and Download URLs in the module.json
     - name: Substitute Manifest and Download Links For Versioned Ones

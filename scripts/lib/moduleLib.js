@@ -1,4 +1,4 @@
-import config from './config/config.json' assert { type: "json" }
+import * as configFile from './config/config.js'
 const LOG_PREFIX = 'VTTES2FVTT'
 export const MACRO_COMP_NAME = 'vttes-macros'
 
@@ -10,8 +10,8 @@ const LOCAL_CONFIG = {
 const SOURCE_MESSAGE = 'Imported by vttes to Foundry'
 
 
-const getFolderPath = function () {
-    if (config.env === 'dev') {
+export function getFolderPath() {
+    if (configFile.GLOBAL_CONFIG.env === 'dev') {
         return 'modules/vttes-to-foundry-dev/'
     }
     return 'modules/vttes-to-foundry/'
@@ -230,7 +230,6 @@ export {
     capitalizeFirstLetterOfEveryWord,
     getSizeCode,
     getArmorTypeAndDexLimit,
-    getFolderPath,
     SOURCE_MESSAGE,
     getAttackType,
     WEAPON_PROPERTIES,
