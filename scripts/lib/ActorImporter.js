@@ -570,9 +570,12 @@ export default class ActorImporter {
         }
 
         var newClass = this.getOverridenClassData(className, useClass, subClassName, classLevel)
-        var newSubClass = this.getOverridenClassData(subClassName, subClass, subClassName)
-
-        await this.actor.createEmbeddedDocuments('Item', [newClass, newSubClass])
+        if (subClass) {
+          var newSubClass = this.getOverridenClassData(subClassName, subClass, subClassName)
+          await this.actor.createEmbeddedDocuments('Item', [newClass, newSubClass])
+        } else {
+          await this.actor.createEmbeddedDocuments('Item', [newClass])
+        }
 
         return newClass
     }
