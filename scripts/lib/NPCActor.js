@@ -17,20 +17,17 @@ export default class NPCActorImport extends ActorImporter {
             ui.notifications.error('Actor is in incorrect format (expected : NPC)')
         }
 
-        var monsterFeatures = await game.packs.get('dnd5e.monsterfeatures')
-
         var spells = await this.getAndPrepareSpells()
 
         moduleLib.vttLog('Iterating on Features ...')
 
-        var embedFeaturesQueue = []
-        var {
-            embedQueue: embedFeaturesQueue,
-            creationQueue: creationFeaturesQueue
-        } = await this.embedMonsterFeatures(monsterFeatures)
+        var embedFeaturesQueue = await this.embedFromCompendiums(['dnd5e.monsterfeatures'], ['npctrait'], {
+            createAction: this.createNPCTrait
+        })
+        
         this.setDarkvision(embedFeaturesQueue)
 
-        var embedActionsQueue = await this.embedFromCompendiums(['npcaction', 'weapon'], 'npcaction', {
+        var embedActionsQueue = await this.embedFromCompendiums(['npcaction', 'weapon'], ['npcaction'], {
             transformAction: this.updateDamage,
             createAction: this.createNPCAction
         })
@@ -89,7 +86,7 @@ export default class NPCActorImport extends ActorImporter {
 
 
     async embedMonsterFeatures(monsterFeatures) {
-        return await this.embedFromRepeating([monsterFeatures], 'npctrait', this.updateDescription)
+        return await this.embedFromRepeating([monsterFeatures], ['npctrait'], this.updateDescription)
     }
 
     updateDescription(content, currObject) {
@@ -97,12 +94,12 @@ export default class NPCActorImport extends ActorImporter {
     }
 
     updateDamage(content, currObject, currFeat) {
-        currObject.description.value = currObject.description.value.replaceAll('{creature}', content.character.name)
+        currObject.system.description.value = currObject.system.description.value.replaceAll('{creature}', content.character.name)
         if (currFeat.attack_damage) {
-            currObject.damage.parts = [
+            currObject.system.damage.parts = [
                 [currFeat.attack_damage.current, currFeat.attack_damagetype.current]
             ]
-            currObject.attackBonus = parseInt(currFeat.attack_tohit.current)
+            currObject.system.attackBonus = parseInt(currFeat.attack_tohit.current)
         }
     }
 
@@ -225,32 +222,61 @@ export default class NPCActorImport extends ActorImporter {
         };
     }
 
-    async createNPCAction(item, options) {
-        console.log(item)
-        console.log(options)
+    async createNPCTrait(item, options) {
+        moduleLib.vttLog(`Creating NPC Trait ${item.name.current}`)
 
         var desc = await renderTemplate(moduleLib.getFolderPath() + 'templates/itemDescription.hbs', {
             properties: item.itemproperties ? item.itemproperties.current : '',
-            content: item.itemcontent ? item.itemcontent.current : ''
+            content: item.itemcontent ? item.itemcontent.current : item.description ? item.description.current : 'none'
+        })
+
+        return {
+            name: item.name.current,
+            type: 'feat',
+            labels: {
+                featType: 'passive'
+            },
+            img: 'icons/commodities/tech/cog-brass.webp',
+            system: {
+                description: {
+                    value: desc
+                },
+                source: 'Imported by vttes to Foundry'
+            }
+        }
+    }
+
+    async createNPCAction(item, options) {
+        moduleLib.vttLog(`Creating NPC Action ${item.name.current}`)
+
+        var desc = await renderTemplate(moduleLib.getFolderPath() + 'templates/itemDescription.hbs', {
+            properties: item.itemproperties ? item.itemproperties.current : '',
+            content: item.itemcontent ? item.itemcontent.current : item.description ? item.description.current : 'none'
         })
 
         var newItem = {
             name: item.name.current,
             type: 'feat',
+            labels: {
+                featType: 'action',
+                activation: 'none'
+            },
+            img: 'icons/commodities/tech/cog-brass.webp',
             system: {
                 description: {
                     value: desc
                 },
                 source: 'Imported by vttes to Foundry',
-                quantity: item.itemcount ? item.itemcount.current : 1,
-                weight: item.itemweight ? item.itemweight.current : 0,
-                rarity: "common",
+                activation: {
+                    type: 'none'
+                }
             }
         }
 
         if (item.attack_damage) {
 
             newItem.type = 'weapon'
+            newItem.img = 'icons/skills/melee/blood-slash-foam-red.webp'
 
             var damageParts = [
                 [item.attack_damage.current, item.attack_damagetype.current],
@@ -277,7 +303,7 @@ export default class NPCActorImport extends ActorImporter {
                 }
             }
 
-            newItem.data = {
+            newItem.system = {
                 description: {
                     value: desc,
                     chat: "",

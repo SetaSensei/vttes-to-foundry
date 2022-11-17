@@ -552,13 +552,13 @@ export default class ActorImporter {
                     if (compendiumClass.type === 'class') {
                         moduleLib.vttLog(`Found base class ${className}`)
                         useClass = compendiumClass
-                        break
+                        continue
                     }
 
                     if (compendiumClass.type === 'subclass') {
                         moduleLib.vttLog(`Found sub class ${subClassName}`)
                         subClass = compendiumClass
-                        break
+                        continue
                     }
                 }
             }
@@ -576,8 +576,7 @@ export default class ActorImporter {
         } else {
           await this.actor.createEmbeddedDocuments('Item', [newClass])
         }
-
-        return newClass
+        return newClasses
     }
 
     getOverridenClassData(className, sourceClass, subClassName, level = 1) {
