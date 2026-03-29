@@ -1,0 +1,1360 @@
+<header class="window-header" style=""><slide-toggle class="mode-slider" data-tooltip="Edit" aria-label="Edit"><div class="slide-toggle-track"><div class="slide-toggle-thumb"></div></div></slide-toggle>
+      <i class="window-icon fa-fw hidden" inert=""></i>
+      <h1 class="window-title">Player Character: 1</h1><h2 class="window-subtitle"></h2><button type="button" class="header-control preparation-warnings icon fa-solid fa-triangle-exclamation" data-action="openWarnings" data-tooltip="Warnings" data-tooltip-direction="DOWN" aria-label="Warnings" hidden=""></button>
+      <button type="button" class="header-control icon fa-solid fa-ellipsis-vertical context" data-tooltip="Toggle Controls" aria-label="Toggle Controls" data-action="toggleControls" style=""></button>
+      
+        <button type="button" class="header-control fa-solid fa-passport icon" data-action="copyUuid" data-tooltip="Copy Document UUID" aria-label="Copy Document UUID"></button>
+      <button type="button" class="header-control icon fa-solid fa-xmark" data-tooltip="Close Window" aria-label="Close Window" data-action="close"></button>
+    </header>
+    <menu class="controls-dropdown"><li class="header-control" data-action="configureSheet"><button type="button" class="control"><i class="control-icon fa-fw fa-solid fa-gear"></i><span class="control-label">Configure Sheet</span></button></li><li class="header-control" data-action="configurePrototypeToken"><button type="button" class="control"><i class="control-icon fa-fw fa-solid fa-circle-user"></i><span class="control-label">Prototype Token</span></button></li><li class="header-control" data-action="showPortraitArtwork"><button type="button" class="control"><i class="control-icon fa-fw fa-solid fa-image"></i><span class="control-label">View Character Artwork</span></button></li><li class="header-control" data-action="showTokenArtwork"><button type="button" class="control"><i class="control-icon fa-fw fa-solid fa-image"></i><span class="control-label">View Token Artwork</span></button></li></menu><section class="window-content"><header class="sheet-header" data-application-part="header">
+
+    <div class="left optional-ability-0">
+
+        <div class="document-name">1</div>
+
+        <div class="class roboto-upper"></div>
+    </div>
+
+    <div class="right">
+
+        <div class="level-badge badge" aria-label="Level 0">
+            0
+        </div>
+
+        <button type="button" class="inspiration unbutton" data-action="toggleInspiration" aria-label="Inspiration" data-tooltip="DND5E.Inspiration" aria-pressed="false"></button>
+
+
+        <div>
+            <div class="sheet-header-buttons">
+                <button type="button" class="short-rest gold-button" data-action="rest" data-type="short" data-tooltip="DND5E.REST.Short.Label" aria-label="Short Rest">
+                    <i class="fas fa-utensils" inert=""></i>
+                </button>
+                <button type="button" class="long-rest gold-button" data-action="rest" data-type="long" data-tooltip="DND5E.REST.Long.Label" aria-label="Long Rest">
+                    <i class="fas fa-campground" inert=""></i>
+                </button>
+            </div>
+
+            <div class="xp-label roboto-upper">
+                <span class="value">0</span>
+                <span class="separator">/</span>
+                <span class="max">300</span>
+            </div>
+            <div class="xp-bar" role="meter" aria-label="Progress to next Level" aria-valuemin="0" aria-valuenow="0" aria-valuemax="300" aria-valuetext="0%" style="--bar-percentage: 0%;"></div>
+        </div>
+    </div>
+</header><div class="sheet-body"><div data-container-id="main" class="main-content"><div class="sidebar" data-application-part="sidebar">
+
+    <div class="card">
+
+        <button type="button" class="sidebar-collapser collapser card-tab vertical unbutton always-interactive" data-tooltip="JOURNAL.ViewCollapse" aria-label="Collapse Sidebar" data-action="toggleSidebar">
+            <i class="fas fa-caret-left" inert=""></i>
+        </button>
+
+        <div class="portrait ">
+
+            <img src="systems/dnd5e/icons/svg/actors/character.svg" alt="1" data-action="showArtwork">
+        </div>
+
+        <div class="stats">
+
+            <div class="top">
+
+                <div class="pips" data-prop="system.attributes.exhaustion">
+                    <button type="button" class="pip" data-action="togglePip" data-n="1" data-tooltip="Exhaustion Level 1" aria-label="Exhaustion Level 1" aria-pressed="false"></button>
+                    <button type="button" class="pip" data-action="togglePip" data-n="2" data-tooltip="Exhaustion Level 2" aria-label="Exhaustion Level 2" aria-pressed="false"></button>
+                    <button type="button" class="pip" data-action="togglePip" data-n="3" data-tooltip="Exhaustion Level 3" aria-label="Exhaustion Level 3" aria-pressed="false"></button>
+                </div>
+
+                <div class="ac-badge badge" aria-label="Armor Class">
+                    <div data-attribution="attributes.ac" data-attribution-caption="DND5E.ArmorClass" data-tooltip-direction="DOWN" data-tooltip="
+      &lt;section class=&quot;loading&quot; data-uuid=&quot;Actor.9lAju8UfWxjgF7JW&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;
+    " data-tooltip-class="property-attribution">
+                        10
+                    </div>
+                </div>
+
+                <div class="pips" data-prop="system.attributes.exhaustion">
+                    <button type="button" class="pip" data-action="togglePip" data-n="4" data-tooltip="Exhaustion Level 4" aria-label="Exhaustion Level 4" aria-pressed="false"></button>
+                    <button type="button" class="pip" data-action="togglePip" data-n="5" data-tooltip="Exhaustion Level 5" aria-label="Exhaustion Level 5" aria-pressed="false"></button>
+                    <button type="button" class="pip death" data-action="togglePip" data-n="6" data-tooltip="Exhaustion Level 6" aria-label="Exhaustion Level 6" aria-pressed="false"></button>
+                </div>
+            </div>
+
+            <div class="lozenges">
+
+                <div class="lozenge rollable" data-action="roll" data-type="initiative">
+                    <div class="value">
+                        <span>
+                            +0
+                        </span>
+                    </div>
+                    <div class="label roboto-condensed-upper">Initiative</div>
+                </div>
+
+                <div class="lozenge" data-attribution="attributes.movement" data-tooltip="
+      &lt;section class=&quot;loading&quot; data-uuid=&quot;Actor.9lAju8UfWxjgF7JW&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;
+    " data-tooltip-class="property-attribution">
+                    <div class="value">
+                        0
+                    </div>
+                    <div class="label roboto-condensed-upper">Speed</div>
+                </div>
+
+                <div class="lozenge">
+                    <div class="value">
+                        +1
+                    </div>
+                    <div class="label roboto-condensed-upper">Proficiency</div>
+                </div>
+            </div>
+
+            <div class="meter-group">
+                <div class="label roboto-condensed-upper">
+                    <span>Hit Points</span>
+                </div>
+                <div class="meter sectioned hit-points">
+                    <div class="progress hit-points" role="meter" aria-valuemin="0" aria-valuenow="0" aria-valuemax="0" style="--bar-percentage: 0%">
+                        <div class="label">
+                            <span class="value">0</span>
+                            <span class="separator">/</span>
+                            <span class="max">0</span>
+                        </div>
+                        <input type="text" name="system.attributes.hp.value" data-dtype="Number" placeholder="0" value="0" hidden="">
+                    </div>
+                    <div class="tmp">
+                        <input type="text" name="system.attributes.hp.temp" data-dtype="Number" placeholder="TMP" value="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="meter-group">
+                <div class="label roboto-condensed-upper">
+                    <span>Hit Dice</span>
+                </div>
+                <div class="meter hit-dice progress" role="meter" aria-valuemin="0" aria-valuenow="0" aria-valuemax="0" style="--bar-percentage: 0%">
+                    <div class="label">
+                        <span class="value">0</span>
+                        <span class="separator">/</span>
+                        <span class="max">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="death-tray ">
+            <div class="death-saves">
+
+                <div class="pips" data-prop="system.attributes.death.success">
+                    <button type="button" class="pip" data-action="togglePip" data-n="3" data-tooltip="DND5E.DeathSaveSuccessLabel" aria-label="3rd death save success" aria-pressed="false"></button>
+                    <button type="button" class="pip" data-action="togglePip" data-n="2" data-tooltip="DND5E.DeathSaveSuccessLabel" aria-label="2nd death save success" aria-pressed="false"></button>
+                    <button type="button" class="pip" data-action="togglePip" data-n="1" data-tooltip="DND5E.DeathSaveSuccessLabel" aria-label="1st death save success" aria-pressed="false"></button>
+                </div>
+
+                <button type="button" class="rollable death-save unbutton" data-action="roll" data-type="deathSave" data-tooltip="DND5E.DeathSaveRoll" aria-label="Roll a Death Saving Throw">
+                    <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/dead.svg"></dnd5e-icon>
+                </button>
+
+                <div class="pips" data-prop="system.attributes.death.failure">
+                    <button type="button" class="pip failure" data-action="togglePip" data-n="1" data-tooltip="DND5E.DeathSaveFailureLabel" aria-label="1st death save failure" aria-pressed="false"></button>
+                    <button type="button" class="pip failure" data-action="togglePip" data-n="2" data-tooltip="DND5E.DeathSaveFailureLabel" aria-label="2nd death save failure" aria-pressed="false"></button>
+                    <button type="button" class="pip failure" data-action="togglePip" data-n="3" data-tooltip="DND5E.DeathSaveFailureLabel" aria-label="3rd death save failure" aria-pressed="false"></button>
+                </div>
+
+            </div>
+
+            <button type="button" class="death-tab card-tab horizontal unbutton always-interactive" data-action="toggleDeathTray" data-tooltip="DND5E.DeathSaveHide" aria-label="Hide Death Saves">
+                <i class="fas fa-skull" inert=""></i>
+            </button>
+        </div>
+
+    </div>
+
+    <div class="favorites">
+        <h3 class="icon">
+            <i class="fas fa-bookmark" inert=""></i>
+            <span class="roboto-upper">Favorites</span>
+        </h3>
+        <ul class="unlist">
+
+            <li class="drop roboto-upper">Drop Favorite</li>
+        </ul>
+    </div>
+</div><div data-container-id="tabs" class="tab-body"><section class="tab active col-2" data-tab="details" data-group="primary" data-application-part="details">
+
+    <div class="left">
+
+        <filigree-box class="skills">
+            <h3>
+                <i class="fas fa-briefcase" inert=""></i>
+                <span class="roboto-upper">Skills</span>
+            </h3>
+            <ul>
+                <li data-key="acr">
+                    <proficiency-cycle type="skill" name="system.skills.acr.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">dex</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Acrobatics
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="ani">
+                    <proficiency-cycle type="skill" name="system.skills.ani.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">wis</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Animal Handling
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="arc">
+                    <proficiency-cycle type="skill" name="system.skills.arc.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">int</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Arcana
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="ath">
+                    <proficiency-cycle type="skill" name="system.skills.ath.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">str</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Athletics
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="dec">
+                    <proficiency-cycle type="skill" name="system.skills.dec.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">cha</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Deception
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="his">
+                    <proficiency-cycle type="skill" name="system.skills.his.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">int</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        History
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="ins">
+                    <proficiency-cycle type="skill" name="system.skills.ins.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">wis</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Insight
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="itm">
+                    <proficiency-cycle type="skill" name="system.skills.itm.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">cha</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Intimidation
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="inv">
+                    <proficiency-cycle type="skill" name="system.skills.inv.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">int</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Investigation
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="med">
+                    <proficiency-cycle type="skill" name="system.skills.med.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">wis</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Medicine
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="nat">
+                    <proficiency-cycle type="skill" name="system.skills.nat.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">int</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Nature
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="prc">
+                    <proficiency-cycle type="skill" name="system.skills.prc.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">wis</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Perception
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="prf">
+                    <proficiency-cycle type="skill" name="system.skills.prf.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">cha</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Performance
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="per">
+                    <proficiency-cycle type="skill" name="system.skills.per.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">cha</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Persuasion
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="rel">
+                    <proficiency-cycle type="skill" name="system.skills.rel.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">int</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Religion
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="slt">
+                    <proficiency-cycle type="skill" name="system.skills.slt.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">dex</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Sleight of Hand
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="ste">
+                    <proficiency-cycle type="skill" name="system.skills.ste.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">dex</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Stealth
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+                <li data-key="sur">
+                    <proficiency-cycle type="skill" name="system.skills.sur.value" data-tooltip="Not Proficient" value="0" aria-label="Not Proficient" disabled=""></proficiency-cycle>
+                    <div class="ability roboto-upper">wis</div>
+                    <a class="draggable name rollable skill-name" data-action="roll" data-type="skill" draggable="true">
+                        Survival
+                    </a>
+                    <div class="bonus"><span class="sign">+</span>0</div>
+                    <div class="passive">10</div>
+                    </li>
+            </ul>
+        </filigree-box>
+
+        <filigree-box class="tools">
+            <h3>
+                <i class="fas fa-hammer" inert=""></i>
+                <span class="roboto-upper">Tools</span>
+            </h3>
+            <ul>
+            </ul>
+        </filigree-box>
+
+    </div>
+
+    <div class="right">
+
+        <div class="top flexrow">
+
+            <filigree-box class="saves">
+                <h3>
+                    <i class="fas fa-shield-heart" inert=""></i>
+                    <span class="roboto-upper">Saving Throws</span>
+                </h3>
+                <ul>
+                    <li data-ability="str" class="none">
+                        <proficiency-cycle type="ability" name="system.abilities.str.proficient" data-tooltip="" aria-label="Not Proficient" value="0" disabled=""></proficiency-cycle>
+                        <a class="name saving-throw full rollable" data-action="roll" data-type="ability">Strength</a>
+                        <a class="name saving-throw abbr rollable" data-action="roll" data-type="ability">str</a>
+                        <div class="bonus"><span class="sign">+</span>0</div>
+                    </li>
+                    <li data-ability="dex" class="none">
+                        <proficiency-cycle type="ability" name="system.abilities.dex.proficient" data-tooltip="" aria-label="Not Proficient" value="0" disabled=""></proficiency-cycle>
+                        <a class="name saving-throw full rollable" data-action="roll" data-type="ability">Dexterity</a>
+                        <a class="name saving-throw abbr rollable" data-action="roll" data-type="ability">dex</a>
+                        <div class="bonus"><span class="sign">+</span>0</div>
+                    </li>
+                    <li data-ability="con" class="none">
+                        <proficiency-cycle type="ability" name="system.abilities.con.proficient" data-tooltip="" aria-label="Not Proficient" value="0" disabled=""></proficiency-cycle>
+                        <a class="name saving-throw full rollable" data-action="roll" data-type="ability">Constitution</a>
+                        <a class="name saving-throw abbr rollable" data-action="roll" data-type="ability">con</a>
+                        <div class="bonus"><span class="sign">+</span>0</div>
+                    </li>
+                    <li data-ability="int" class="none">
+                        <proficiency-cycle type="ability" name="system.abilities.int.proficient" data-tooltip="" aria-label="Not Proficient" value="0" disabled=""></proficiency-cycle>
+                        <a class="name saving-throw full rollable" data-action="roll" data-type="ability">Intelligence</a>
+                        <a class="name saving-throw abbr rollable" data-action="roll" data-type="ability">int</a>
+                        <div class="bonus"><span class="sign">+</span>0</div>
+                    </li>
+                    <li data-ability="wis" class="none">
+                        <proficiency-cycle type="ability" name="system.abilities.wis.proficient" data-tooltip="" aria-label="Not Proficient" value="0" disabled=""></proficiency-cycle>
+                        <a class="name saving-throw full rollable" data-action="roll" data-type="ability">Wisdom</a>
+                        <a class="name saving-throw abbr rollable" data-action="roll" data-type="ability">wis</a>
+                        <div class="bonus"><span class="sign">+</span>0</div>
+                    </li>
+                    <li data-ability="cha" class="none">
+                        <proficiency-cycle type="ability" name="system.abilities.cha.proficient" data-tooltip="" aria-label="Not Proficient" value="0" disabled=""></proficiency-cycle>
+                        <a class="name saving-throw full rollable" data-action="roll" data-type="ability">Charisma</a>
+                        <a class="name saving-throw abbr rollable" data-action="roll" data-type="ability">cha</a>
+                        <div class="bonus"><span class="sign">+</span>0</div>
+                    </li>
+                </ul>
+            </filigree-box>
+
+            <div class="pills-lg">
+                <div class="pill-lg texture type" data-reference-tooltip="Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.iFzQs4AenN8ALRvw" data-tooltip="
+      &lt;section class=&quot;loading&quot; data-uuid=&quot;Compendium.dnd5e.rules.JournalEntry.NizgRXLNUqtdlC1s.JournalEntryPage.iFzQs4AenN8ALRvw&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;
+    ">
+                    <div class="gold-icon creature-type " style="background-image: url('icons/environment/people/group.webp');"></div>
+                    <div class="name name-stacked">
+                        <span class="title">
+                            Humanoid
+                        </span>
+                        <span class="subtitle"></span>
+                    </div>
+                </div>
+                <div class="pill-lg empty roboto-upper" data-action="findItem" data-item-type="race">
+                    Add Species
+                </div>
+                                <div class="pill-lg empty roboto-upper" data-action="findItem" data-item-type="background">
+                    Add Background
+                </div>
+                            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+    </div>
+</section><section class="tab " data-tab="inventory" data-group="primary" data-application-part="inventory">
+
+    <div class="top">
+
+        <div class="encumbrance card">
+            <div class="meter progress" role="meter" aria-valuemin="0" aria-valuenow="0" aria-valuetext="0" aria-valuemax="150" style="--bar-percentage: 0%; --breakpoint-low: 33.333333333333336%; --breakpoint-high: 66.66666666666667%;">
+                <div class="label">
+                    <i class="fa-solid fa-weight-hanging" inert=""></i>
+                    <span class="value">0</span>
+                    <span class="separator">/</span>
+                    <span class="max">150</span>
+                </div>
+                <i class="breakpoint breakpoint-low arrow-up" role="presentation"></i>
+                <i class="breakpoint breakpoint-low arrow-down" role="presentation"></i>
+                <i class="breakpoint breakpoint-high arrow-up" role="presentation"></i>
+                <i class="breakpoint breakpoint-high arrow-down" role="presentation"></i>
+            </div>
+            <div class="info">
+                <div class="strength">
+                    <span class="label">Strength</span>
+                    <span class="value">10</span>
+                </div>
+                <div class="size">
+                    <span class="label">Size</span>
+                    <span class="value" aria-label="Medium">Md</span>
+                </div>
+                <div class="multiplier">
+                    <span class="label">Multiplier</span>
+                    <span class="value">
+                        <span class="sign">×</span>
+                        1
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <ul class="containers unlist">
+        </ul>
+
+    </div>
+
+    <dnd5e-inventory class="inventory-element">
+    
+        <section class="currency">
+            <button type="button" class="item-action unbutton always-interactive" data-action="currency" aria-label="Manage Currency">
+                <i class="fa-solid fa-coins" inert=""></i>
+            </button>
+            <label aria-label="Platinum">
+                <i class="currency pp" data-tooltip="Platinum"></i>
+                <input type="text" class="uninput always-interactive" name="system.currency.pp" value="0" data-dtype="Number" inputmode="numeric" pattern="^[+=\-]?\d*">
+            </label>
+            <label aria-label="Gold">
+                <i class="currency gp" data-tooltip="Gold"></i>
+                <input type="text" class="uninput always-interactive" name="system.currency.gp" value="0" data-dtype="Number" inputmode="numeric" pattern="^[+=\-]?\d*">
+            </label>
+            <label aria-label="Electrum">
+                <i class="currency ep" data-tooltip="Electrum"></i>
+                <input type="text" class="uninput always-interactive" name="system.currency.ep" value="0" data-dtype="Number" inputmode="numeric" pattern="^[+=\-]?\d*">
+            </label>
+            <label aria-label="Silver">
+                <i class="currency sp" data-tooltip="Silver"></i>
+                <input type="text" class="uninput always-interactive" name="system.currency.sp" value="0" data-dtype="Number" inputmode="numeric" pattern="^[+=\-]?\d*">
+            </label>
+            <label aria-label="Copper">
+                <i class="currency cp" data-tooltip="Copper"></i>
+                <input type="text" class="uninput always-interactive" name="system.currency.cp" value="0" data-dtype="Number" inputmode="numeric" pattern="^[+=\-]?\d*">
+            </label>
+        </section>
+    
+        <div class="middle">
+    
+            <item-list-controls for="inventory" collection="items" label="Search inventory"><search aria-label="Search inventory">
+      <input type="text" class="always-interactive" placeholder="Search inventory">
+      <ul class="unlist controls">
+        <li>
+          <button type="button" class="unbutton filter-control always-interactive" data-action="clear" data-tooltip="" aria-label="Clear Filters">
+            <i class="fas fa-xmark"></i>
+          </button>
+        </li>
+      <li>
+        <button type="button" class="unbutton filter-control filter always-interactive" data-action="filter" aria-label="Filter">
+          <i class="fa-solid fa-filter" inert=""></i>
+        </button>
+      </li><li>
+        <button type="button" class="unbutton filter-control always-interactive active " data-action="sort" aria-label="Sort Manually" data-tooltip="Sort Manually">
+          <i inert="" class="fa-solid fa-arrow-down-short-wide"></i>
+        </button>
+      </li><li>
+        <button type="button" class="unbutton filter-control always-interactive active" data-action="group" aria-label="Group by Category" data-tooltip="Group by Category">
+          <i inert="" class="fa-solid fa-layer-group"></i>
+        </button>
+      </li></ul>
+    </search></item-list-controls>
+    
+        <div class="attunement">
+      <i class="fa-solid fa-sun" data-tooltip="DND5E.Attunement" aria-label="Attunement"></i>
+      <span class="value">0</span>
+      <span class="separator">/</span>
+    <span class="max">3</span></div></div>
+    
+        <section class="items-list inventory-list" data-item-list="inventory">
+    
+            <div class="items-section card" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name"></h3>
+                    <div class="item-header item-price hidden-width" data-column-id="price" data-column-width="80" data-column-priority="300">Price</div>
+                    <div class="item-header item-weight hidden-width" data-column-id="weight" data-column-width="60" data-column-priority="400">Weight</div>
+                    <div class="item-header item-quantity hidden-width" data-column-id="quantity" data-column-width="70" data-column-priority="500">Quantity</div>
+                    <div class="item-header item-roll hidden-width" data-column-id="roll" data-column-width="40" data-column-priority="800">Roll</div>
+                    <div class="item-header item-formula hidden-width" data-column-id="formula" data-column-width="80" data-column-priority="700">Formula</div>
+                    <div class="item-header item-capacity hidden-width" data-column-id="capacity" data-column-width="200" data-column-priority="1000"></div>
+                    <div class="item-header item-charges hidden-width" data-column-id="charges" data-column-width="70" data-column-priority="600">Charges</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-type="weapon" data-column-min-width="250" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Weapons</h3>
+                    <div class="item-header item-price hidden-width" data-column-id="price" data-column-width="80" data-column-priority="300">Price</div>
+                    <div class="item-header item-weight hidden-width" data-column-id="weight" data-column-width="60" data-column-priority="400">Weight</div>
+                    <div class="item-header item-quantity hidden-width" data-column-id="quantity" data-column-width="70" data-column-priority="500">Quantity</div>
+                    <div class="item-header item-roll hidden-width" data-column-id="roll" data-column-width="40" data-column-priority="800">Roll</div>
+                    <div class="item-header item-formula hidden-width" data-column-id="formula" data-column-width="80" data-column-priority="700">Formula</div>
+                    <div class="item-header item-charges hidden-width" data-column-id="charges" data-column-width="70" data-column-priority="600">Charges</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-contents="contents" data-column-min-width="250" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Contents</h3>
+                    <div class="item-header item-price hidden-width" data-column-id="price" data-column-width="80" data-column-priority="300">Price</div>
+                    <div class="item-header item-weight hidden-width" data-column-id="weight" data-column-width="60" data-column-priority="400">Weight</div>
+                    <div class="item-header item-quantity hidden-width" data-column-id="quantity" data-column-width="70" data-column-priority="500">Quantity</div>
+                    <div class="item-header item-charges hidden-width" data-column-id="charges" data-column-width="70" data-column-priority="600">Charges</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-type="equipment" data-column-min-width="250" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Equipment</h3>
+                    <div class="item-header item-price hidden-width" data-column-id="price" data-column-width="80" data-column-priority="300">Price</div>
+                    <div class="item-header item-weight hidden-width" data-column-id="weight" data-column-width="60" data-column-priority="400">Weight</div>
+                    <div class="item-header item-quantity hidden-width" data-column-id="quantity" data-column-width="70" data-column-priority="500">Quantity</div>
+                    <div class="item-header item-charges hidden-width" data-column-id="charges" data-column-width="70" data-column-priority="600">Charges</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-type="consumable" data-column-min-width="250" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Consumables</h3>
+                    <div class="item-header item-price hidden-width" data-column-id="price" data-column-width="80" data-column-priority="300">Price</div>
+                    <div class="item-header item-weight hidden-width" data-column-id="weight" data-column-width="60" data-column-priority="400">Weight</div>
+                    <div class="item-header item-quantity hidden-width" data-column-id="quantity" data-column-width="70" data-column-priority="500">Quantity</div>
+                    <div class="item-header item-charges hidden-width" data-column-id="charges" data-column-width="70" data-column-priority="600">Charges</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-type="tool" data-column-min-width="250" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Tools</h3>
+                    <div class="item-header item-price hidden-width" data-column-id="price" data-column-width="80" data-column-priority="300">Price</div>
+                    <div class="item-header item-weight hidden-width" data-column-id="weight" data-column-width="60" data-column-priority="400">Weight</div>
+                    <div class="item-header item-quantity hidden-width" data-column-id="quantity" data-column-width="70" data-column-priority="500">Quantity</div>
+                    <div class="item-header item-charges hidden-width" data-column-id="charges" data-column-width="70" data-column-priority="600">Charges</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-type="container" data-column-min-width="250" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Containers</h3>
+                    <div class="item-header item-capacity hidden-width" data-column-id="capacity" data-column-width="200" data-column-priority="1000"></div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-type="loot" data-column-min-width="250" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Loot</h3>
+                    <div class="item-header item-price hidden-width" data-column-id="price" data-column-width="80" data-column-priority="300">Price</div>
+                    <div class="item-header item-weight hidden-width" data-column-id="weight" data-column-width="60" data-column-priority="400">Weight</div>
+                    <div class="item-header item-quantity hidden-width" data-column-id="quantity" data-column-width="70" data-column-priority="500">Quantity</div>
+                    <div class="item-header item-charges hidden-width" data-column-id="charges" data-column-width="70" data-column-priority="600">Charges</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+    
+        </section>
+    
+    
+    </dnd5e-inventory>
+</section><section class="tab " data-tab="features" data-group="primary" data-application-part="features">
+    <section class="classes pills-lg ">
+        <div class="pill-lg empty roboto-upper" data-action="findItem" data-item-type="class">
+            Add Class
+        </div>
+    </section>
+    <dnd5e-inventory class="inventory-element">
+    
+    
+        <div class="middle">
+    
+            <item-list-controls for="features" collection="items" label="Search features"><search aria-label="Search features">
+      <input type="text" class="always-interactive" placeholder="Search features">
+      <ul class="unlist controls">
+        <li>
+          <button type="button" class="unbutton filter-control always-interactive" data-action="clear" data-tooltip="" aria-label="Clear Filters">
+            <i class="fas fa-xmark"></i>
+          </button>
+        </li>
+      <li>
+        <button type="button" class="unbutton filter-control filter always-interactive" data-action="filter" aria-label="Filter">
+          <i class="fa-solid fa-filter" inert=""></i>
+        </button>
+      </li><li>
+        <button type="button" class="unbutton filter-control always-interactive active " data-action="sort" aria-label="Sort Manually" data-tooltip="Sort Manually">
+          <i inert="" class="fa-solid fa-arrow-down-short-wide"></i>
+        </button>
+      </li><li>
+        <button type="button" class="unbutton filter-control always-interactive active" data-action="group" aria-label="Group by Origin" data-tooltip="Group by Origin">
+          <i inert="" class="fa-solid fa-layer-group"></i>
+        </button>
+      </li></ul>
+    </search></item-list-controls>
+    
+        </div>
+    
+        <section class="items-list features-list" data-item-list="features">
+    
+            <div class="items-section card" data-group-activation="active" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Active Abilities</h3>
+                    <div class="item-header item-uses hidden-width" data-column-id="uses" data-column-width="70" data-column-priority="600">Uses</div>
+                    <div class="item-header item-recovery hidden-width" data-column-id="recovery" data-column-width="60" data-column-priority="500">Recovery</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-activation="passive" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Passive Abilities</h3>
+                    <div class="item-header item-uses hidden-width" data-column-id="uses" data-column-width="70" data-column-priority="600">Uses</div>
+                    <div class="item-header item-recovery hidden-width" data-column-id="recovery" data-column-width="60" data-column-priority="500">Recovery</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+            <div class="items-section card" data-group-origin="other" hidden="">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Other Features</h3>
+                    <div class="item-header item-uses hidden-width" data-column-id="uses" data-column-width="70" data-column-priority="600">Uses</div>
+                    <div class="item-header item-recovery hidden-width" data-column-id="recovery" data-column-width="60" data-column-priority="500">Recovery</div>
+                    <div class="item-header item-controls hidden-width" data-column-id="controls" data-column-width="70" data-column-priority="1000"></div>
+                </div>
+    
+                <ol class="item-list unlist"></ol>
+    
+            </div>
+    
+        </section>
+    
+    
+    </dnd5e-inventory>
+</section><section class="tab " data-tab="spells" data-group="primary" data-application-part="spells">
+    <section class="top">
+    </section>
+
+    <dnd5e-inventory class="inventory-element">
+    
+    
+        <div class="middle">
+    
+            <item-list-controls for="spells" collection="items" label="Search spells" keep-empty=""><search aria-label="Search spells">
+      <input type="text" class="always-interactive" placeholder="Search spells">
+      <ul class="unlist controls">
+        <li>
+          <button type="button" class="unbutton filter-control always-interactive" data-action="clear" data-tooltip="" aria-label="Clear Filters">
+            <i class="fas fa-xmark"></i>
+          </button>
+        </li>
+      <li>
+        <button type="button" class="unbutton filter-control filter always-interactive" data-action="filter" aria-label="Filter">
+          <i class="fa-solid fa-filter" inert=""></i>
+        </button>
+      </li><li>
+        <button type="button" class="unbutton filter-control always-interactive active " data-action="sort" aria-label="Sort Alphabetically" data-tooltip="Sort Alphabetically">
+          <i inert="" class="fa-solid fa-arrow-down-a-z"></i>
+        </button>
+      </li></ul>
+    </search></item-list-controls>
+    
+        </div>
+    
+        <section class="items-list spells-list" data-item-list="spells">
+    
+    
+        </section>
+    
+    
+    </dnd5e-inventory>
+
+</section><section class="tab " data-tab="effects" data-group="primary" data-application-part="effects">
+    <dnd5e-effects class="effects-element">
+    
+        <item-list-controls for="effects" label="Search effects" sort="a" collection="effects"><search aria-label="Search effects">
+      <input type="text" class="always-interactive" placeholder="Search effects">
+      <ul class="unlist controls">
+        <li>
+          <button type="button" class="unbutton filter-control always-interactive" data-action="clear" data-tooltip="" aria-label="Clear Filters">
+            <i class="fas fa-xmark"></i>
+          </button>
+        </li>
+      </ul>
+    </search></item-list-controls>
+    
+        <section class="items-list effects-list" data-item-list="effects">
+    
+            <div class="items-section card" data-effect-type="enchantment" hidden="">
+    
+                <div class="items-header header ">
+                    <h3 class="item-name effect-name">Enchantments</h3>
+                    <div class="item-header effect-source">Source</div>
+                    <div class="item-header item-controls effect-controls">
+                    </div>
+                </div>
+    
+                <ol class="item-list unlist">
+                </ol>
+    
+            </div>
+            <div class="items-section card" data-effect-type="temporary" hidden="">
+    
+                <div class="items-header header ">
+                    <h3 class="item-name effect-name">Temporary Effects</h3>
+                    <div class="item-header effect-source">Source</div>
+                    <div class="item-header item-controls effect-controls">
+                    </div>
+                </div>
+    
+                <ol class="item-list unlist">
+                </ol>
+    
+            </div>
+            <div class="items-section card" data-effect-type="activeEnchantment" hidden="">
+    
+                <div class="items-header header ">
+                    <h3 class="item-name effect-name">Active Enchantments</h3>
+                    <div class="item-header effect-source">Source</div>
+                    <div class="item-header item-controls effect-controls">
+                    </div>
+                </div>
+    
+                <ol class="item-list unlist">
+                </ol>
+    
+            </div>
+            <div class="items-section card" data-effect-type="passive" hidden="">
+    
+                <div class="items-header header ">
+                    <h3 class="item-name effect-name">Passive Effects</h3>
+                    <div class="item-header effect-source">Source</div>
+                    <div class="item-header item-controls effect-controls">
+                    </div>
+                </div>
+    
+                <ol class="item-list unlist">
+                </ol>
+    
+            </div>
+            <div class="items-section card" data-effect-type="inactiveEnchantment" hidden="">
+    
+                <div class="items-header header ">
+                    <h3 class="item-name effect-name">Inactive Enchantments</h3>
+                    <div class="item-header effect-source">Source</div>
+                    <div class="item-header item-controls effect-controls">
+                    </div>
+                </div>
+    
+                <ol class="item-list unlist">
+                </ol>
+    
+            </div>
+            <div class="items-section card" data-effect-type="inactive" hidden="">
+    
+                <div class="items-header header ">
+                    <h3 class="item-name effect-name">Inactive Effects</h3>
+                    <div class="item-header effect-source">Source</div>
+                    <div class="item-header item-controls effect-controls">
+                    </div>
+                </div>
+    
+                <ol class="item-list unlist">
+                </ol>
+    
+            </div>
+            <div class="items-section card" data-effect-type="suppressed" hidden="">
+    
+                <div class="items-header header disabled">
+                    <h3 class="item-name effect-name">Unavailable Effects</h3>
+                    <div class="item-header effect-source">Source</div>
+                    <div class="item-header item-controls effect-controls">
+                        <a class="info-control" data-tooltip="" aria-label="Source item must be equipped or attuned to activate these">
+                            <i class="fas fa-circle-question" inert=""></i>
+                        </a>
+                    </div>
+                </div>
+    
+                <ol class="item-list unlist">
+                </ol>
+    
+            </div>
+    
+        </section>
+    
+        <section class="items-list">
+    
+            <div class="items-section card">
+    
+                <div class="items-header header">
+                    <h3 class="item-name">Conditions</h3>
+                </div>
+    
+                <ul class="conditions-list unlist">
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.uDogReMO6QtH6NDw" data-condition-id="blinded" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/blinded.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Blinded</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.vLAsIUa0FhZNsyLk" data-condition-id="charmed" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/charmed.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Charmed</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.qlRw66tJhk0zLnwq" data-condition-id="deafened" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/deafened.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Deafened</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.jSQtPgNm0i4f3Qi3" data-condition-id="exhaustion" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/exhaustion.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Exhaustion</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.93uaingTESo8N1qL" data-condition-id="frightened" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/frightened.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Frightened</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.KbQ1k0OIowtZeQgp" data-condition-id="grappled" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/grappled.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Grappled</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.4i3G895hy99piand" data-condition-id="incapacitated" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/incapacitated.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Incapacitated</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.MQIZ1zRLWRcNOtPN" data-condition-id="invisible" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/invisible.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Invisible</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.RnxZoTglPnLc6UPb" data-condition-id="paralyzed" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/paralyzed.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Paralyzed</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.6vtLuQT9lwZ9N299" data-condition-id="petrified" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/petrified.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Petrified</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.HWs8kEojffqwTSJz" data-condition-id="poisoned" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/poisoned.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Poisoned</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.QxCrRcgMdUd3gfzz" data-condition-id="prone" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/prone.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Prone</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.dqLeGdpHtb8FfcxX" data-condition-id="restrained" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/restrained.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Restrained</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.EjbXjvyQAMlDyANI" data-condition-id="stunned" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/stunned.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Stunned</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                    <li class="condition  content-link" data-action="toggleCondition" data-uuid="Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.fZCRaKEJd4KoQCqH" data-condition-id="unconscious" data-tooltip="&lt;section class=&quot;loading&quot;&gt;&lt;i class=&quot;fas fa-spinner fa-spin-pulse&quot;&gt;&lt;/i&gt;&lt;/section&gt;">
+                        <div class="icon">
+                            <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/unconscious.svg"></dnd5e-icon>
+                        </div>
+                        <div class="name-stacked">
+                            <span class="title">Unconscious</span>
+                        </div>
+                        <i class="fa-solid fa-toggle-off"></i>
+                    </li>
+                </ul>
+    
+            </div>
+    
+        </section>
+    
+    </dnd5e-effects>
+    
+</section><section class="tab " data-tab="biography" data-group="primary" data-application-part="biography">
+
+    <div class="top">
+        <ul class="unlist characteristics">
+            <li>
+                <label>
+                    <span class="roboto-upper label">Alignment</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span class="roboto-upper label">Eyes</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span class="roboto-upper label">Height</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span class="roboto-upper label">Faith</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span class="roboto-upper label">Hair</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span class="roboto-upper label">Weight</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span class="roboto-upper label">Gender</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span class="roboto-upper label">Skin</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+            <li>
+                <label>
+                    <span class="roboto-upper label">Age</span>
+                    <span class="value"></span>
+                </label>
+            </li>
+        </ul>
+    </div>
+
+    <div class="middle">
+        <div class="left"><div class="textbox textbox-half">
+    <h3 class="icon">
+        <i class="fas fa-seedling"></i>
+        <span class="roboto-upper">Ideals</span>
+    </h3>
+    <p></p>
+</div>
+<div class="textbox textbox-half">
+    <h3 class="icon">
+        <i class="fas fa-link"></i>
+        <span class="roboto-upper">Bonds</span>
+    </h3>
+    <p></p>
+</div>
+<div class="textbox textbox-half">
+    <h3 class="icon">
+        <i class="fas fa-heart-crack"></i>
+        <span class="roboto-upper">Flaws</span>
+    </h3>
+    <p></p>
+</div>
+</div>
+        <div class="right"><div class="textbox textbox-half">
+    <h3 class="icon">
+        <i class="fas fa-puzzle-piece"></i>
+        <span class="roboto-upper">Personality Traits</span>
+    </h3>
+    <p></p>
+</div>
+<div class="textbox textbox-half">
+    <h3 class="icon">
+        <i class="fas fa-image-portrait"></i>
+        <span class="roboto-upper">Appearance</span>
+    </h3>
+    <p></p>
+</div>
+</div>
+    </div>
+
+    <div class="bottom" data-target="system.details.biography.value">
+        <h3 class="icon">
+            <i class="fas fa-feather"></i>
+            <dnd5e-icon src="systems/dnd5e/icons/svg/ink-pot.svg"></dnd5e-icon>
+            <span class="roboto-upper">Biography</span>
+        </h3>
+        <div class="editor">
+            <div class="editor-content"></div>
+        </div>
+    </div>
+
+</section><section class="tab " data-tab="bastion" data-group="primary" data-application-part="bastion">
+
+    <section class="name">
+        <div class="document-name"></div>
+    </section>
+
+    <section class="contents">
+
+        <section class="roster">
+            <h3 class="icon">
+                <i class="fas fa-shield" inert=""></i>
+                <span class="roboto-upper">Defenders</span>
+            </h3>
+            <ul class="unlist">
+            <li class="empty">
+                Bastion is undefended.
+            </li>
+            </ul>
+        </section>
+
+        <section class="facilities basic">
+            <h3 class="icon">
+                <i class="fas fa-chess-rook" inert=""></i>
+                <span class="roboto-upper">Basic Facilities</span>
+            </h3>
+            <ul class="unlist">
+                <li class="facility empty roboto-upper" data-action="findItem" data-item-type="facility" data-facility-type="basic">
+                    Build Facility
+                </li>
+            </ul>
+        </section>
+
+        <section class="facilities special">
+            <h3 class="icon">
+                <i class="fas fa-building-columns" inert=""></i>
+                <span class="roboto-upper">Special Facilities</span>
+                <span class="counter">0 / 0</span>
+            </h3>
+            <ul class="unlist">
+            </ul>
+        </section>
+
+    </section>
+
+    <section class="description">
+        <h3 class="icon">
+            <i class="fas fa-feather"></i>
+            <dnd5e-icon src="systems/dnd5e/icons/svg/ink-pot.svg"></dnd5e-icon>
+            <span class="roboto-upper">Description</span>
+        </h3>
+        <div class="editor">
+            <div class="editor-content"></div>
+        </div>
+    </section>
+
+</section><section class="tab flexcol" data-tab="specialTraits" data-group="primary" data-application-part="specialTraits">
+    <fieldset class="card">
+        <legend>Class</legend>
+        <div class="form-group">
+            <label>Original Class</label>
+            <select name="system.details.originalClass" disabled="">
+                
+            </select>
+            <p class="hint">First class taken by character used to determine certain class traits when multiclassing.</p>
+        </div>
+    </fieldset>
+
+    <fieldset class="card">
+        <legend>Feats</legend>
+        <div class="form-group"><label>Diamond Soul</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.diamondSoul" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Gain proficiency to all saving throws.</p></div>
+        <div class="form-group"><label>Enhanced Dual Wielding</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.enhancedDualWielding" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Allow bonus action extra attacks using any melee weapon without the Two-Handed property.</p></div>
+        <div class="form-group"><label>Alert Feat</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.initiativeAlert" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Proficient in Initiative rolls.</p></div>
+        <div class="form-group"><label>Jack of All Trades</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.jackOfAllTrades" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Half-Proficiency to Ability Checks in which you are not already Proficient.</p></div>
+        <div class="form-group"><label>Observant Feat</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.observantFeat" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Provides a +5 to passive Perception and Investigation.</p></div>
+        <div class="form-group"><label>Tavern Brawler Feat</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.tavernBrawlerFeat" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Proficient with improvised weapons.</p></div>
+        <div class="form-group"><label>Reliable Talent</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.reliableTalent" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Rogues Reliable Talent Feature.</p></div>
+        <div class="form-group"><label>Remarkable Athlete</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.remarkableAthlete" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Half-Proficiency (rounded-up) to physical Ability Checks and Initiative.</p></div>
+        <div class="form-group"><label>Tool Expertise</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.toolExpertise" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Doubles your proficiency bonus for any ability check you make that uses your proficiency with a tool.</p></div>
+        <div class="form-group"><label>Weapon Critical Hit Threshold</label><div class="form-fields"><input type="number" name="flags.dnd5e.weaponCriticalThreshold" value="" step="any" disabled=""></div><p class="hint">An expanded critical hit threshold for weapon attacks.</p></div>
+        <div class="form-group"><label>Spell Critical Hit Threshold</label><div class="form-fields"><input type="number" name="flags.dnd5e.spellCriticalThreshold" value="" step="any" disabled=""></div><p class="hint">An expanded critical hit threshold for spell attacks.</p></div>
+        <div class="form-group"><label>Melee Critical Damage Dice</label><div class="form-fields"><input type="number" name="flags.dnd5e.meleeCriticalDamageDice" value="" step="any" disabled=""></div><p class="hint">A number of additional damage dice added to melee weapon critical hits.</p></div>
+    </fieldset>
+    <fieldset class="card">
+        <legend>Species Traits</legend>
+        <div class="form-group"><label>Elven Accuracy</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.elvenAccuracy" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Roll an extra d20 with advantage to Dex, Int, Wis, or Cha.</p></div>
+        <div class="form-group"><label>Halfling Lucky</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.halflingLucky" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Reroll ones when rolling d20 checks.</p></div>
+        <div class="form-group"><label>Halfling Nimbleness</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.halflingNimbleness" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Movement through larger creatures is not blocked.</p></div>
+        <div class="form-group"><label>Powerful Build</label><div class="form-fields"><dnd5e-checkbox name="flags.dnd5e.powerfulBuild" disabled="" tabindex="0"></dnd5e-checkbox></div><p class="hint">Provides increased carrying capacity.</p></div>
+    </fieldset>
+    <fieldset class="card">
+        <legend>Global Bonuses</legend>
+        <div class="form-group"><label>Melee Weapon Attack Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.mwak.attack" value="" disabled=""></div></div>
+        <div class="form-group"><label>Melee Weapon Damage Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.mwak.damage" value="" disabled=""></div></div>
+        <div class="form-group"><label>Ranged Weapon Attack Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.rwak.attack" value="" disabled=""></div></div>
+        <div class="form-group"><label>Ranged Weapon Damage Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.rwak.damage" value="" disabled=""></div></div>
+        <div class="form-group"><label>Melee Spell Attack Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.msak.attack" value="" disabled=""></div></div>
+        <div class="form-group"><label>Melee Spell Damage Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.msak.damage" value="" disabled=""></div></div>
+        <div class="form-group"><label>Ranged Spell Attack Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.rsak.attack" value="" disabled=""></div></div>
+        <div class="form-group"><label>Ranged Spell Damage Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.rsak.damage" value="" disabled=""></div></div>
+        <div class="form-group"><label>Global Ability Check Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.abilities.check" value="" disabled=""></div></div>
+        <div class="form-group"><label>Global Saving Throw Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.abilities.save" value="" disabled=""></div></div>
+        <div class="form-group"><label>Global Skill Check Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.abilities.skill" value="" disabled=""></div></div>
+        <div class="form-group"><label>Global Spell DC Bonus</label><div class="form-fields"><input type="text" name="system.bonuses.spell.dc" value="" disabled=""></div></div>
+    </fieldset>
+</section></div></div></div><section class="ability-scores optional-ability-0" data-application-part="abilityScores">
+    <div class="rows">
+        <div class="top">
+        </div>
+        <div class="bottom">
+                    <div class="ability-score" data-ability="str">
+                        <a class="label rollable ability-check" data-action="roll" data-type="ability">str</a>
+                        <div class="mod">
+                            <span class="sign">+</span>0
+                        </div>
+                        <div class="score">
+                            10
+                        </div>
+                    </div>
+                    <div class="ability-score" data-ability="dex">
+                        <a class="label rollable ability-check" data-action="roll" data-type="ability">dex</a>
+                        <div class="mod">
+                            <span class="sign">+</span>0
+                        </div>
+                        <div class="score">
+                            10
+                        </div>
+                    </div>
+                    <div class="ability-score" data-ability="con">
+                        <a class="label rollable ability-check" data-action="roll" data-type="ability">con</a>
+                        <div class="mod">
+                            <span class="sign">+</span>0
+                        </div>
+                        <div class="score">
+                            10
+                        </div>
+                    </div>
+                    <div class="ability-score" data-ability="int">
+                        <a class="label rollable ability-check" data-action="roll" data-type="ability">int</a>
+                        <div class="mod">
+                            <span class="sign">+</span>0
+                        </div>
+                        <div class="score">
+                            10
+                        </div>
+                    </div>
+                    <div class="ability-score" data-ability="wis">
+                        <a class="label rollable ability-check" data-action="roll" data-type="ability">wis</a>
+                        <div class="mod">
+                            <span class="sign">+</span>0
+                        </div>
+                        <div class="score">
+                            10
+                        </div>
+                    </div>
+                    <div class="ability-score" data-ability="cha">
+                        <a class="label rollable ability-check" data-action="roll" data-type="ability">cha</a>
+                        <div class="mod">
+                            <span class="sign">+</span>0
+                        </div>
+                        <div class="score">
+                            10
+                        </div>
+                    </div>
+        </div>
+    </div>
+</section><dialog class="warnings locked-tooltip dnd5e-tooltip dnd5e2 active themed theme-light" data-application-part="warnings">
+    <ul class="unlist">
+    </ul>
+</dialog><nav class="tabs tabs-right" data-group="primary" aria-roledescription="Form Tab Navigation" data-application-part="tabs" id="CharacterActorSheet-Actor-9lAju8UfWxjgF7JW-tabs">
+    <a class="item control active " data-action="tab" data-group="primary" data-tab="details" data-tooltip="" aria-label="Details">
+        <i class="fas fa-cog" inert=""></i>
+        
+    </a>
+    <a class="item control  " data-action="tab" data-group="primary" data-tab="inventory" data-tooltip="" aria-label="Inventory">
+        
+        <dnd5e-icon src="systems/dnd5e/icons/svg/backpack.svg"></dnd5e-icon>
+    </a>
+    <a class="item control  " data-action="tab" data-group="primary" data-tab="features" data-tooltip="" aria-label="Features">
+        <i class="fas fa-list" inert=""></i>
+        
+    </a>
+    <a class="item control  " data-action="tab" data-group="primary" data-tab="spells" data-tooltip="" aria-label="Spells">
+        <i class="fas fa-book" inert=""></i>
+        
+    </a>
+    <a class="item control  " data-action="tab" data-group="primary" data-tab="effects" data-tooltip="" aria-label="Effects">
+        <i class="fas fa-bolt" inert=""></i>
+        
+    </a>
+    <a class="item control  " data-action="tab" data-group="primary" data-tab="biography" data-tooltip="" aria-label="Biography">
+        <i class="fas fa-feather" inert=""></i>
+        
+    </a>
+    <a class="item control  " data-action="tab" data-group="primary" data-tab="specialTraits" data-tooltip="" aria-label="Special Traits">
+        <i class="fas fa-star" inert=""></i>
+        
+    </a>
+</nav><button type="button" aria-label="Create" class="create-child gold-button always-interactive" data-action="addDocument"><i class="fas fa-plus" inert=""></i></button></section><div class="window-resize-handle"></div>

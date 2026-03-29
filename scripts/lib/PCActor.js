@@ -4,6 +4,13 @@ import {
 import ActorImporter from "./ActorImporter.js";
 import * as moduleLib from './moduleLib.js'
 
+function fixRoll20URL(url) {
+    if (url && typeof url === 'string' && url.includes('s3.amazonaws.com/files.d20.io')) {
+        return url.replace('s3.amazonaws.com/', '');
+    }
+    return url;
+}
+
 
 export default class PCActorImport extends ActorImporter {
     constructor(actor) {
@@ -81,6 +88,8 @@ export default class PCActorImport extends ActorImporter {
     async updateToken(tokenInfos, darkvision) {
         var actorToken = this.actor.prototypeToken;
 
+        tokenInfos.imgsrc = fixRoll20URL(tokenInfos.imgsrc);
+
         if (tokenInfos.sides && tokenInfos.sides != '') {
             var allSides = tokenInfos.sides.split('|')
 
@@ -93,7 +102,7 @@ export default class PCActorImport extends ActorImporter {
 
             var idx = 0
             allSides.forEach(element => {
-                var url = decodeURIComponent(element)
+                var url = fixRoll20URL(decodeURIComponent(element));
                 script += `${idx++}: {`
                 script += `    icon: "<img src='${url}' style:'width:60px;'/>",`
                 script += `    callback: () => updateToken('${url}')`
@@ -252,7 +261,7 @@ export default class PCActorImport extends ActorImporter {
 
         await this.actor.update({
             name: this.content.character.name,
-            img: this.content.character.avatar,
+            img: fixRoll20URL(this.content.character.avatar),
             system: {
                 abilities: abilities,
                 attributes: {

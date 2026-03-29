@@ -290,7 +290,7 @@ export default class NPCActorImport extends ActorImporter {
             }
 
             if (item.attack_range) {
-                moduleLib.getAttackRange(item.attack_range.current)
+                range = moduleLib.getAttackRange(item.attack_range.current)
             }
 
             var aType = moduleLib.getAttackType(item.attack_type ? item.attack_type.current : 'none')

@@ -2,7 +2,7 @@ import {importToActor} from './lib/actorLib.js'
 import {importToJournal} from './lib/journalLib.js'
 import {vttLog, vttError, getFolderPath} from './lib/moduleLib.js'
 
-CONFIG.debug.hooks = false
+CONFIG.debug.hooks = true
 
 Hooks.once('init', async function () {
 
@@ -22,12 +22,39 @@ Hooks.on('renderJournalSheet', async (app, html, data) => {
 
 })
 
-Hooks.on('renderActorSheet5e', async (app, html, data) => {
-    const actionsTabButton = $('<a class="file-picker" data-tab="vttestofoundry-actor" data-actorid="' + data.actor._id + '"> VTTES Import </a>');
-    const closeButton = html.find('.close')
-    actionsTabButton.insertBefore(closeButton)
+function addVTTESButton(app, html, data) {
+    vttLog(`addVTTESButton hooked`);
+    const jHtml = $(html);
 
-    actionsTabButton.on('click', actorShowFilePicker)
+    // Check if the button already exists
+    if (jHtml.find('.vttes-import-button').length > 0) {
+        return;
+    }
+
+    const actionsTabButton = $('<a class="file-picker vttes-import-button" data-tab="vttestofoundry-actor" data-actorid="' + data.actor._id + '"> VTTES Import </a>');
+    
+    // Find the close button, which is a reliable anchor in most sheet headers
+    const closeButton = jHtml.find('[data-action="close"]');
+    
+    if (closeButton.length > 0) {
+        // Inject the button before the close button
+        actionsTabButton.insertBefore(closeButton);
+    } else {
+        // Fallback: if no close button is found, find the header and append it as the last child
+        const header = jHtml.find('.window-header').first();
+        if (header.length > 0) {
+            header.append(actionsTabButton);
+        } else {
+            // As a last resort, append to the top of the sheet
+            jHtml.prepend(actionsTabButton);
+        }
+    }
+    
+    actionsTabButton.on('click', actorShowFilePicker);
+}
+
+Hooks.on('renderActorSheetV2', (app, html, data) => {
+    addVTTESButton(app, html, data);
 });
 
 

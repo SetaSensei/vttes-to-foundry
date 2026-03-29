@@ -87,11 +87,12 @@ const getAttackType = function (attackType) {
 
 const getAttackRange = function (attackRange) {
     var rangeInfo = attackRange.split(' ')
+    var parsedValue = parseInt(rangeInfo[0]);
 
     return {
-        value: rangeInfo[0],
+        value: isNaN(parsedValue) ? null : parsedValue,
         long: null,
-        units: rangeInfo[1].replace('.', '')
+        units: (rangeInfo[1] || '').replace('.', '')
     }
 }
 

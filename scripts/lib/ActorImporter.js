@@ -126,7 +126,8 @@ export default class ActorImporter {
         if (attrib === '') {
             return defaultValue
         }
-        return parseInt(attrib)
+        var parsed = parseInt(attrib);
+        return isNaN(parsed) ? defaultValue : parsed;
     }
 
     getCalculatedProficiency(level) {
@@ -232,8 +233,9 @@ export default class ActorImporter {
                     typeName: arType,
                     maxDex: maxDex
                 } = moduleLib.getArmorType(modifiers['Item Type'])
+                var acVal = parseInt(modifiers['AC']);
                 newItem.armor = {
-                    value: parseInt(modifiers['AC']),
+                    value: isNaN(acVal) ? null : acVal,
                     type: arType,
                     dex: maxDex
                 }
@@ -745,9 +747,11 @@ export default class ActorImporter {
             moduleLib.vttWarn(`The attribute hp was not found. Make sure all attributes names (attribs) are set in lowercase`, true)
             return
         }
+        var val = parseInt(hpAttrib.current);
+        var max = parseInt(hpAttrib.max);
         return {
-            value: parseInt(hpAttrib.current),
-            max: parseInt(hpAttrib.max),
+            value: isNaN(val) ? 0 : val,
+            max: isNaN(max) ? 0 : max,
             temp: 0,
             tempmax: 0
         };
