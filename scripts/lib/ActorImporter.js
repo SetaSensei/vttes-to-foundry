@@ -564,6 +564,41 @@ export default class ActorImporter {
         return clonedClass;
     }
 
+    async setActorRace() {
+        var raceName = this.getAttribCurrent("race_display") || this.getAttribCurrent("race")
+
+        return await this.setRace(raceName)
+    }
+
+    async setRace(raceName) {
+        if (!raceName) {
+            return null
+        }
+
+        var lowerRaceName = raceName.toLowerCase()
+        var raceCompendium = this.getCompendiumByType("race")
+
+        moduleLib.vttLog(`Looking up race ${raceName} in compendiums`)
+        var useRace = null
+        for (let compIndex = 0; compIndex < raceCompendium.length; compIndex++) {
+            const compendium = raceCompendium[compIndex];
+            const raceFromComp = compendium.index.find(r => r.type === 'race' && r.name.toLowerCase() === lowerRaceName)
+            if (raceFromComp) {
+                useRace = await compendium.getDocument(raceFromComp._id)
+                break
+            }
+        }
+
+        if (!useRace) {
+            moduleLib.vttWarn(`Race ${raceName} cannot be found in any of the game's compendium`, true)
+            return null
+        }
+
+        var newRace = foundry.utils.deepClone(useRace.toObject())
+        await this.actor.createEmbeddedDocuments('Item', [newRace])
+        return newRace
+    }
+
     setDarkvision(actorFeats) {
         this.darkvision = 0
 

@@ -56,6 +56,8 @@ export default class PCActorImport extends ActorImporter {
 
         await this.updatePCActorSheet(this.darkvision, size, abilities);
 
+        await this.setActorRace();
+
         this.applyProficiencies(inventory);
 
         var allItemsToCreate = [...inventory, ...traits, ...spells];
